@@ -157,6 +157,16 @@ h3 {
   left: 1rem;
 }
 
+/* Texto só para leitores de ecrã: invisível, mas lido */
+.visualmente-escondido {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* Texto pequeno com uma linha de cada lado: —— TEXTO —— */
 .ornamento {
   display: flex;
@@ -236,20 +246,95 @@ h3 {
   text-underline-offset: 3px;
 }
 
-/* Estado "A carregar…": o JS junta a classe a-carregar ao botão */
-.btn.a-carregar::before {
+/* Ícone de carregamento: anel a girar com os naipes a trocar ao centro.
+   O JS cria-o com criarCarregador() (ui.js): um span.carregador com 4 spans, um por naipe. */
+.carregador {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  width: 3.25rem;
+  height: 3.25rem;
+}
+
+/* O anel */
+.carregador::before {
   content: "";
-  width: 1em;
-  height: 1em;
-  border: 2px solid currentColor;
-  border-right-color: transparent;
+  position: absolute;
+  inset: 0;
+  border: 3px solid var(--cor-linha);
+  border-top-color: var(--cor-destaque);
   border-radius: 50%;
   animation: rodar 0.8s linear infinite;
+}
+
+/* Os 4 naipes, empilhados: cada um aparece durante uma volta do anel */
+.carregador span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 1.4rem;
+  line-height: 1;
+  opacity: 0;
+  animation: naipe-visivel 3.2s step-end infinite;
+}
+
+.carregador span:nth-child(2) {
+  animation-delay: 0.8s;
+}
+
+.carregador span:nth-child(3) {
+  animation-delay: 1.6s;
+}
+
+.carregador span:nth-child(4) {
+  animation-delay: 2.4s;
+}
+
+.carregador .naipe-preto {
+  color: var(--cor-tinta);
+}
+
+.carregador .naipe-vermelho {
+  color: var(--cor-destaque);
+}
+
+/* Versão pequena, para dentro de botões: usa a cor do texto do botão */
+.carregador-pequeno {
+  width: 1.35rem;
+  height: 1.35rem;
+}
+
+.carregador-pequeno::before {
+  border-width: 2px;
+  border-color: currentColor;
+  border-top-color: transparent;
+}
+
+.carregador-pequeno span {
+  font-size: 0.7rem;
+}
+
+.carregador-pequeno .naipe-preto,
+.carregador-pequeno .naipe-vermelho {
+  color: currentColor;
 }
 
 @keyframes rodar {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes naipe-visivel {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
   }
 }
 
@@ -1307,7 +1392,14 @@ h3 {
   margin: 0 0 2rem;
 }
 
+/* Moldura: segura a imagem e o ícone de carregamento por cima dela */
+.galeria-moldura {
+  position: relative;
+  flex-shrink: 0;
+}
+
 .galeria-imagem {
+  display: block;
   width: min(22rem, 70vw);
   aspect-ratio: 3 / 4;
   object-fit: cover;
@@ -1315,6 +1407,19 @@ h3 {
   border-radius: var(--raio-carta);
   background: var(--cor-superficie-3);
   box-shadow: var(--sombra-carta);
+  transition: opacity 0.2s;
+}
+
+/* Enquanto a carta nova descarrega, a antiga fica esbatida */
+.galeria-imagem.a-esbater {
+  opacity: 0.35;
+}
+
+.galeria-a-carregar {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
 }
 
 .galeria-legenda {
@@ -1681,8 +1786,17 @@ h3 {
     animation: none;
   }
 
-  .btn.a-carregar::before {
-    animation-duration: 2s;
+  /* Ícone de carregamento parado: só o ♠ visível */
+  .carregador::before,
+  .carregador span {
+    animation: none;
   }
 
+  .carregador span:first-child {
+    opacity: 1;
+  }
+
+  .galeria-imagem {
+    transition: none;
+  }
 }

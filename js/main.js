@@ -44,12 +44,29 @@ document.getElementById("btn-tema").addEventListener("click", () => {
 const baralhoGuardado = localStorage.getItem(CHAVE_BARALHO);
 aplicarBaralho(BARALHOS.includes(baralhoGuardado) ? baralhoGuardado : "classico");
 
-document.getElementById("seletor-baralho").addEventListener("change", (evento) => {
-  aplicarBaralho(evento.target.value);
-  localStorage.setItem(CHAVE_BARALHO, evento.target.value);
+// Um só sítio para trocar de baralho: header, leque da Mesa, verso das cartas e galeria
+function escolherBaralho(baralho) {
+  aplicarBaralho(baralho); // seletor do header + data-baralho (leque e verso)
+  localStorage.setItem(CHAVE_BARALHO, baralho);
 
-  // Com a galeria aberta, passa a mostrar o baralho escolhido no header
-  if (!document.getElementById("galeria").hidden) abrirGaleria(evento.target.value);
+  if (!document.getElementById("galeria").hidden) abrirGaleria(baralho);
+}
+
+document.getElementById("seletor-baralho").addEventListener("change", (evento) => {
+  escolherBaralho(evento.target.value);
+});
+
+// Pílulas da galeria: trocam o baralho em todo o site.
+// Com uma partida a decorrer, só mudam a galeria (o baralho do jogo não pode mudar a meio).
+document.querySelector("#galeria .separadores").addEventListener("click", (evento) => {
+  const separador = evento.target.closest(".separador");
+  if (!separador) return;
+
+  if (jogoEmCurso()) {
+    abrirGaleria(separador.dataset.baralho);
+  } else {
+    escolherBaralho(separador.dataset.baralho);
+  }
 });
 
 // Navegação: um só listener para todos os botões com data-seccao
