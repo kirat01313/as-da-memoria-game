@@ -45,8 +45,54 @@
   </header>
 
   <main id="conteudo">
-    <!-- PARTE 2: secção início -->
+    <section id="inicio" class="seccao seccao-inicio" aria-labelledby="titulo-inicio">
+      <div class="inicio-titulo">
+        <h1 id="titulo-inicio">Ás da Memória</h1>
+        <p class="subtitulo">Um jogo clássico de cartas ilustradas.</p>
+      </div>
 
+      <div class="leque" aria-hidden="true">
+        <div class="leque-carta leque-carta-esquerda"></div>
+        <div class="leque-carta leque-carta-direita"></div>
+        <div class="leque-carta leque-carta-frente"></div>
+      </div>
+
+      <form id="form-partida" class="cartao-partida">
+        <h2>Nova partida</h2>
+
+        <label for="nome-jogador">O teu nome</label>
+        <input id="nome-jogador" name="nome" type="text" maxlength="20" autocomplete="nickname" placeholder="Ex.: Ana" required>
+
+        <fieldset class="niveis">
+          <legend>Nível</legend>
+
+          <label class="opcao-nivel">
+            <input type="radio" name="nivel" value="facil">
+            <span>Fácil</span>
+            <small>12 cartas · 6 pares</small>
+          </label>
+
+          <label class="opcao-nivel">
+            <input type="radio" name="nivel" value="medio" checked>
+            <span>Médio</span>
+            <small>16 cartas · 8 pares</small>
+          </label>
+
+          <label class="opcao-nivel">
+            <input type="radio" name="nivel" value="dificil">
+            <span>Difícil</span>
+            <small>24 cartas · 12 pares</small>
+          </label>
+        </fieldset>
+
+        <button id="btn-jogar" class="btn btn-principal" type="submit">Jogar</button>
+      </form>
+
+      <p class="recorde">
+        Recorde a bater: <strong id="recorde">—</strong>
+        <button class="btn-link" type="button" data-seccao="ranking">Ver ranking</button>
+      </p>
+    </section>
     <!-- PARTE 3: secção jogo -->
 
     <!-- PARTE 4: secções ranking e como jogar -->
