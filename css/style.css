@@ -933,3 +933,168 @@ h3 {
 [data-baralho="azulejo"] .leque-carta-frente {
   background-image: url("../img/baralhos/azulejo/rei-paus.webp");
 }
+
+/* =========================================================
+   16. DIÁLOGO DE VITÓRIA
+   ========================================================= */
+/* Só com [open]: sem isto, o display: grid mostrava-o sempre */
+.dialogo-vitoria[open] {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+}
+
+.dialogo-vitoria {
+  width: min(26rem, calc(100% - 2rem));
+  margin: auto;
+  padding: 2rem;
+  border: 0;
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra-forte);
+  text-align: center;
+  color: var(--cor-texto);
+}
+
+.dialogo-vitoria::backdrop {
+  background: var(--fundo-dialogo);
+}
+
+.dialogo-vitoria h2 {
+  font-size: 2rem;
+}
+
+.dialogo-vitoria .estatisticas {
+  justify-content: center;
+}
+
+.vitoria-posicao {
+  font-weight: 600;
+}
+
+/* Carimbo "Novo recorde pessoal" */
+.selo {
+  padding: 0.3rem 0.8rem;
+  border: 2px solid var(--cor-destaque);
+  border-radius: var(--raio);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cor-destaque);
+  transform: rotate(-3deg);
+}
+
+.dialogo-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* =========================================================
+   17. RESPONSIVO
+   ========================================================= */
+/* Tablet: o menu passa para uma linha própria */
+@media (max-width: 900px) {
+  .cabecalho {
+    gap: 0.75rem 1rem;
+  }
+
+  .menu {
+    order: 3;
+    width: 100%;
+  }
+
+  .menu ul {
+    justify-content: center;
+  }
+}
+
+/* Telemóvel: uma coluna; a grelha fica mais alta do que larga */
+@media (max-width: 720px) {
+  .seccao {
+    padding-block: 1.5rem 2rem;
+  }
+
+  .seccao-inicio {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "titulo"
+      "leque"
+      "form"
+      "recorde";
+  }
+
+  .leque {
+    height: 15rem;
+  }
+
+  .leque-carta {
+    width: 8rem;
+    margin-left: -4rem;
+  }
+
+  /* No telemóvel a grelha pode fazer scroll: conta só a largura */
+  .grelha {
+    --carta-largura: min(
+      9.5rem,
+      calc((100vw - 2rem - (var(--colunas) - 1) * var(--espaco)) / var(--colunas))
+    );
+  }
+
+  .grelha[data-nivel="facil"] {
+    --colunas: 3;
+    --linhas: 4;
+  }
+
+  .grelha[data-nivel="dificil"] {
+    --colunas: 4;
+    --linhas: 6;
+  }
+
+  .barra-jogo {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .cabecalho-acoes {
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  /* Sem espaço para a data: some a 5.ª coluna */
+  .tabela-ranking th:nth-child(5),
+  .tabela-ranking td:nth-child(5) {
+    display: none;
+  }
+
+  .lista-baralhos {
+    gap: 0.75rem;
+  }
+}
+
+/* =========================================================
+   18. MOVIMENTO REDUZIDO
+   Sem animações, mas o par continua visível 0,6 s antes de sair
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .carta-face,
+  .btn,
+  .menu-link,
+  .opcao-nivel {
+    transition: none;
+  }
+
+  .carta.encontrada {
+    transition: opacity 0s linear 0.6s, visibility 0s linear 0.6s;
+  }
+
+  .btn.a-carregar::before {
+    animation-duration: 2s;
+  }
+}
