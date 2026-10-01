@@ -1,5 +1,14 @@
-import { mostrarSeccao, aplicarTema, aplicarBaralho, mostrarCarregamento } from "./ui.js";
+// ★ imports novos: funções do jogo e da vitória
+import {
+  mostrarSeccao,
+  aplicarTema,
+  aplicarBaralho,
+  mostrarCarregamento,
+  bloquearSeletorBaralho,
+  mostrarVitoria,
+} from "./ui.js";
 import { prepararBaralho } from "./baralho.js";
+import { iniciarJogo, reiniciarJogo, sairDoJogo, jogoEmCurso } from "./jogo.js";
 
 const CHAVE_TEMA = "as-da-memoria:tema";
 const CHAVE_BARALHO = "as-da-memoria:baralho";
@@ -35,7 +44,9 @@ document.addEventListener("click", (evento) => {
   // "Ver ranking" dentro do diálogo de vitória: fecha-o primeiro
   botao.closest("dialog")?.close();
 
-  mostrarSeccao(botao.dataset.seccao);
+  // ★ Com uma partida a decorrer, "Mesa" leva de volta ao jogo
+  const pedida = botao.dataset.seccao;
+  mostrarSeccao(pedida === "inicio" && jogoEmCurso() ? "jogo" : pedida);
 });
 
 // Nova partida
@@ -66,7 +77,10 @@ formPartida.addEventListener("submit", async (evento) => {
 
   try {
     const cartas = await prepararBaralho(baralho, nivel);
-    console.log("Cartas da partida:", cartas); // na Parte 3, aqui começa o jogo
+
+    // ★ Começa o jogo (substitui o console.log da Parte 2)
+    iniciarJogo({ cartas, baralho, nivel, nome, aoTerminar: terminarPartida });
+    bloquearSeletorBaralho(true);
     mostrarSeccao("jogo");
   } catch (erro) {
     console.error(erro);
@@ -74,4 +88,27 @@ formPartida.addEventListener("submit", async (evento) => {
   } finally {
     mostrarCarregamento(botaoJogar, false);
   }
+});
+
+// ★ Fim da partida: chamada pelo jogo.js quando o último par sai da mesa
+function terminarPartida(resultado) {
+  bloquearSeletorBaralho(false);
+  mostrarVitoria(resultado);
+}
+
+// ★ Botões do jogo
+document.getElementById("btn-reiniciar").addEventListener("click", reiniciarJogo);
+
+document.getElementById("btn-sair").addEventListener("click", () => {
+  if (!confirm("Sair da partida? O progresso desta partida perde-se.")) return;
+
+  sairDoJogo();
+  bloquearSeletorBaralho(false);
+  mostrarSeccao("inicio");
+});
+
+// ★ "Jogar outra vez": fecha o diálogo e repete o formulário com os mesmos dados
+document.getElementById("btn-jogar-outra").addEventListener("click", () => {
+  document.getElementById("dialogo-vitoria").close();
+  formPartida.requestSubmit();
 });

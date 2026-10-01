@@ -3,6 +3,7 @@ const seccoes = document.querySelectorAll("main > .seccao");
 const linksMenu = document.querySelectorAll(".menu-link");
 const botaoTema = document.getElementById("btn-tema");
 const seletorBaralho = document.getElementById("seletor-baralho");
+const dialogoVitoria = document.getElementById("dialogo-vitoria");
 
 // Mostra uma secção e esconde as outras
 export function mostrarSeccao(id) {
@@ -45,4 +46,14 @@ export function mostrarCarregamento(botao, aCarregar) {
 
   botao.disabled = aCarregar;
   botao.classList.toggle("a-carregar", aCarregar);
+}
+
+// Durante a partida não se pode trocar de baralho
+export function bloquearSeletorBaralho(bloqueado) {
+  seletorBaralho.disabled = bloqueado;
+}
+
+export function mostrarVitoria({ jogadas }) {
+  document.getElementById("vitoria-jogadas").textContent = jogadas;
+  dialogoVitoria.showModal();
 }
