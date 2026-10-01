@@ -162,7 +162,7 @@
       <button class="btn btn-secundario" type="button" data-seccao="inicio">Voltar à mesa</button>
     </section>
 
-    <section id="como-jogar" class="seccao seccao-regras" aria-labelledby="titulo-regras" >
+    <section id="como-jogar" class="seccao seccao-regras" aria-labelledby="titulo-regras" hidden>
       <h2 id="titulo-regras">Como jogar</h2>
 
       <ol class="passos">
@@ -206,7 +206,28 @@
     </section>
   </main>
 
-  <!-- PARTE 5: diálogo de vitória -->
+  <dialog id="dialogo-vitoria" class="dialogo-vitoria" aria-labelledby="titulo-vitoria">
+    <h2 id="titulo-vitoria">Baralho completo!</h2>
+
+    <dl class="estatisticas">
+      <div>
+        <dt>Tempo</dt>
+        <dd id="vitoria-tempo">0:00</dd>
+      </div>
+      <div>
+        <dt>Jogadas</dt>
+        <dd id="vitoria-jogadas">0</dd>
+      </div>
+    </dl>
+
+    <p id="vitoria-posicao" class="vitoria-posicao"></p>
+    <p id="vitoria-recorde" class="selo" hidden>Novo recorde pessoal</p>
+
+    <div class="dialogo-acoes">
+      <button id="btn-jogar-outra" class="btn btn-principal" type="button">Jogar outra vez</button>
+      <button class="btn btn-secundario" type="button" data-seccao="ranking">Ver ranking</button>
+    </div>
+  </dialog>
 
   <footer class="rodape">
     <p>Ás da Memória — Projeto 2 de JavaScript · UpSkill / IPCA <span id="ano"></span></p>
