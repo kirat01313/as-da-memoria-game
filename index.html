@@ -26,6 +26,7 @@
       <ul>
         <li><button class="menu-link" type="button" data-seccao="inicio" aria-current="page">Mesa</button></li>
         <li><button class="menu-link" type="button" data-seccao="ranking">Ranking</button></li>
+        <li><button class="menu-link" type="button" data-seccao="galeria">Galeria</button></li>
         <li><button class="menu-link" type="button" data-seccao="como-jogar">Como jogar</button></li>
       </ul>
     </nav>
@@ -49,7 +50,7 @@
       <div class="inicio-titulo">
         <h1 id="titulo-inicio">Ás da Memória</h1>
         <p class="subtitulo">Um jogo clássico de cartas ilustradas.</p>
-        <p class="ornamento">Jogo da memória</p>
+        <p class="ornamento">Exercício Mnemónico</p>
       </div>
 
       <div class="leque" aria-hidden="true">
@@ -175,6 +176,34 @@
       <blockquote class="citacao-ranking">
         <p>«A constância da mente vence a pressa do acaso.»</p>
       </blockquote>
+    </section>
+
+    <section id="galeria" class="seccao seccao-galeria" aria-labelledby="titulo-galeria" hidden>
+      <header class="cabecalho-seccao cabecalho-com-naipe">
+        <h2 id="titulo-galeria">Galeria</h2>
+        <p class="cabecalho-seccao-intro">Todas as cartas de cada baralho, para veres os pormenores com calma.</p>
+      </header>
+
+      <div class="separadores" role="group" aria-label="Baralho da galeria">
+        <button class="separador" type="button" data-baralho="classico" aria-pressed="true">Clássico</button>
+        <button class="separador" type="button" data-baralho="vitral" aria-pressed="false">Vitral</button>
+        <button class="separador" type="button" data-baralho="azulejo" aria-pressed="false">Azulejo</button>
+      </div>
+
+      <figure class="galeria-destaque">
+        <img id="galeria-imagem" class="galeria-imagem" alt="">
+        <figcaption class="galeria-legenda">
+          <p id="galeria-nome" class="galeria-nome"></p>
+          <p id="galeria-pessoa" class="galeria-pessoa"></p>
+          <p id="galeria-contador" class="galeria-contador"></p>
+        </figcaption>
+      </figure>
+
+      <div class="carrossel">
+        <button id="galeria-anterior" class="carrossel-seta" type="button" aria-label="Carta anterior">‹</button>
+        <ul id="galeria-miniaturas" class="galeria-miniaturas" aria-label="Cartas do baralho"></ul>
+        <button id="galeria-seguinte" class="carrossel-seta" type="button" aria-label="Carta seguinte">›</button>
+      </div>
     </section>
 
     <section id="como-jogar" class="seccao seccao-regras" aria-labelledby="titulo-regras" hidden>

@@ -17,6 +17,7 @@ import {
   registarResultado,
   obterIdDaUltimaEntrada,
 } from "./ranking.js"; // ★
+import { abrirGaleria } from "./galeria.js";
 
 const CHAVE_TEMA = "as-da-memoria:tema";
 const CHAVE_BARALHO = "as-da-memoria:baralho";
@@ -46,6 +47,9 @@ aplicarBaralho(BARALHOS.includes(baralhoGuardado) ? baralhoGuardado : "classico"
 document.getElementById("seletor-baralho").addEventListener("change", (evento) => {
   aplicarBaralho(evento.target.value);
   localStorage.setItem(CHAVE_BARALHO, evento.target.value);
+
+  // Com a galeria aberta, passa a mostrar o baralho escolhido no header
+  if (!document.getElementById("galeria").hidden) abrirGaleria(evento.target.value);
 });
 
 // Navegação: um só listener para todos os botões com data-seccao
@@ -61,6 +65,7 @@ document.addEventListener("click", (evento) => {
   const destino = pedida === "inicio" && jogoEmCurso() ? "jogo" : pedida;
 
   if (destino === "ranking") atualizarRanking(); // ★ tabela sempre atualizada
+  if (destino === "galeria") abrirGaleria(document.documentElement.dataset.baralho); // abre no baralho do header
   mostrarSeccao(destino);
 });
 
@@ -69,7 +74,7 @@ function atualizarRanking() {
   mostrarRanking(nivelRanking, obterRanking(nivelRanking), obterIdDaUltimaEntrada());
 }
 
-document.querySelector(".separadores").addEventListener("click", (evento) => {
+document.querySelector("#ranking .separadores").addEventListener("click", (evento) => {
   const separador = evento.target.closest(".separador");
   if (!separador) return;
 
