@@ -541,6 +541,16 @@ h3 {
   font-variant-numeric: tabular-nums;
 }
 
+.erro-formulario {
+  padding: 0.6rem 0.9rem;
+  border-left: 3px solid var(--cor-destaque);
+  border-radius: var(--raio);
+  background: var(--cor-destaque-suave);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--cor-destaque);
+}
+
 /* =========================================================
    10. JOGO — grelha
    O tamanho das cartas ajusta-se à largura E à altura do ecrã,

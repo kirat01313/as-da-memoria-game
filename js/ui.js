@@ -33,3 +33,16 @@ export function aplicarBaralho(baralho) {
   raiz.dataset.baralho = baralho;
   seletorBaralho.value = baralho;
 }
+
+// Liga e desliga o estado "A carregar…" de um botão
+export function mostrarCarregamento(botao, aCarregar) {
+  if (aCarregar) {
+    botao.dataset.textoOriginal = botao.textContent;
+    botao.textContent = "A carregar baralho…";
+  } else {
+    botao.textContent = botao.dataset.textoOriginal;
+  }
+
+  botao.disabled = aCarregar;
+  botao.classList.toggle("a-carregar", aCarregar);
+}
