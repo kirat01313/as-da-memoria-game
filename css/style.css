@@ -890,3 +890,46 @@ h3 {
   font-weight: 600;
   color: var(--cor-tinta);
 }
+
+/* =========================================================
+   15. IMAGENS DE CADA BARALHO
+   O JS põe data-baralho="classico|vitral|azulejo" no <html>.
+   Sem atributo, vale o Clássico.
+   ========================================================= */
+.leque-carta-esquerda,
+.leque-carta-direita,
+.miniatura-classico {
+  background-image: url("../img/baralhos/classico/verso.webp");
+}
+
+.leque-carta-frente {
+  background-image: url("../img/baralhos/classico/rei-espadas.webp");
+}
+
+.miniatura-vitral {
+  background-image: url("../img/baralhos/vitral/verso.webp");
+}
+
+.miniatura-azulejo {
+  background-image: url("../img/baralhos/azulejo/verso.webp");
+}
+
+[data-baralho="vitral"] .leque-carta-esquerda,
+[data-baralho="vitral"] .leque-carta-direita,
+[data-baralho="vitral"] .carta-verso {
+  background-image: url("../img/baralhos/vitral/verso.webp");
+}
+
+[data-baralho="vitral"] .leque-carta-frente {
+  background-image: url("../img/baralhos/vitral/rei-ouros.webp");
+}
+
+[data-baralho="azulejo"] .leque-carta-esquerda,
+[data-baralho="azulejo"] .leque-carta-direita,
+[data-baralho="azulejo"] .carta-verso {
+  background-image: url("../img/baralhos/azulejo/verso.webp");
+}
+
+[data-baralho="azulejo"] .leque-carta-frente {
+  background-image: url("../img/baralhos/azulejo/rei-paus.webp");
+}
