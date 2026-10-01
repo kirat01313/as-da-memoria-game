@@ -713,3 +713,180 @@ h3 {
   display: flex;
   gap: 0.5rem;
 }
+
+/* =========================================================
+   13. RANKING
+   Classe que o JS põe na linha do jogador atual: atual
+   ========================================================= */
+.separadores {
+  display: inline-flex;
+  gap: 0.25rem;
+  margin-bottom: 1.25rem;
+  padding: 0.25rem;
+  border-radius: var(--raio);
+  background: var(--cor-superficie-2);
+}
+
+.separador {
+  padding: 0.45rem 1.1rem;
+  border: 0;
+  border-radius: var(--raio);
+  background: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--cor-texto-suave);
+}
+
+.separador:hover {
+  color: var(--cor-tinta);
+}
+
+.separador[aria-pressed="true"] {
+  background: var(--cor-superficie);
+  color: var(--cor-tinta);
+  box-shadow: var(--sombra);
+}
+
+.tabela-ranking {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--cor-linha);
+  border-radius: var(--raio-grande);
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--cor-superficie);
+}
+
+.tabela-ranking th,
+.tabela-ranking td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+}
+
+.tabela-ranking th {
+  border-bottom: 1px solid var(--cor-linha);
+  background: var(--cor-superficie-2);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cor-texto-suave);
+}
+
+.tabela-ranking td {
+  border-bottom: 1px solid var(--cor-linha);
+  font-variant-numeric: tabular-nums;
+}
+
+.tabela-ranking tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Espada antes do 1.º lugar */
+.tabela-ranking tbody tr:first-child td:first-child::before {
+  content: "♠ ";
+  color: var(--cor-destaque);
+}
+
+.tabela-ranking tr.atual td {
+  background: var(--cor-destaque-suave);
+  font-weight: 600;
+}
+
+.ranking-vazio {
+  padding: 2rem;
+  text-align: center;
+  color: var(--cor-texto-suave);
+}
+
+.seccao-ranking > .btn {
+  margin-top: 1.5rem;
+}
+
+/* =========================================================
+   14. COMO JOGAR
+   ========================================================= */
+.seccao-regras {
+  max-width: 48rem;
+}
+
+.seccao-regras h3 {
+  margin: 1.75rem 0 0.75rem;
+  font-size: 1.4rem;
+}
+
+/* Passos numerados com counter, como no projeto 1 */
+.passos {
+  display: grid;
+  gap: 0.75rem;
+  counter-reset: passo;
+}
+
+.passos li {
+  display: grid;
+  grid-template-columns: 2.25rem 1fr;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--cor-linha);
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+  counter-increment: passo;
+}
+
+.passos li::before {
+  content: counter(passo);
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--cor-tinta);
+  font-family: var(--fonte-titulos);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--cor-sobre-tinta);
+}
+
+.lista-niveis {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.lista-niveis strong {
+  color: var(--cor-tinta);
+}
+
+.nota {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+}
+
+.lista-baralhos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.lista-baralhos figure {
+  display: grid;
+  justify-items: center;
+  gap: 0.6rem;
+}
+
+.miniatura {
+  width: 100%;
+  max-width: 9rem;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--raio-carta);
+  background: var(--cor-superficie-3) center / cover no-repeat;
+  box-shadow: var(--sombra);
+}
+
+.lista-baralhos figcaption {
+  font-family: var(--fonte-titulos);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--cor-tinta);
+}
