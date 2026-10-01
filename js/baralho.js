@@ -1,10 +1,10 @@
 import { baralhar } from "./utils.js";
 
-// Quantas cartas cada nível usa. No Fácil só entram figuras (as pessoas).
+// Quantos pares cada nível usa
 export const NIVEIS = {
-  facil: { nome: "Fácil", pares: 6, soFiguras: true },
-  medio: { nome: "Médio", pares: 8, soFiguras: false },
-  dificil: { nome: "Difícil", pares: 12, soFiguras: false },
+  facil: { nome: "Fácil", pares: 6 },
+  medio: { nome: "Médio", pares: 8 },
+  dificil: { nome: "Difícil", pares: 12 },
 };
 
 // Guarda o JSON depois da primeira leitura, para não o pedir a cada partida
@@ -46,13 +46,14 @@ export async function prepararBaralho(baralho, nivel) {
     throw new Error(`O baralho "${baralho}" não existe no JSON`);
   }
 
-  const { pares, soFiguras } = NIVEIS[nivel];
+  const { pares } = NIVEIS[nivel];
 
-  const disponiveis = soFiguras
-    ? dadosBaralho.cartas.filter((carta) => carta.tipo === "figura")
-    : dadosBaralho.cartas;
+  // As figuras (as cartas ilustradas da turma) entram primeiro; os números só completam.
+  // A posição na mesa continua aleatória: o jogo.js volta a baralhar tudo.
+  const figuras = baralhar(dadosBaralho.cartas.filter((carta) => carta.tipo === "figura"));
+  const numeros = baralhar(dadosBaralho.cartas.filter((carta) => carta.tipo === "numero"));
 
-  const escolhidas = baralhar(disponiveis).slice(0, pares);
+  const escolhidas = [...figuras, ...numeros].slice(0, pares);
 
   const caminhos = [
     ...escolhidas.map((carta) => caminhoImagem(baralho, carta.id)),
