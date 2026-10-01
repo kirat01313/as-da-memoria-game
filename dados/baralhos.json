@@ -1,0 +1,65 @@
+{
+  "classico": {
+    "nome": "Clássico",
+    "cartas": [
+      { "id": "as-copas", "nome": "Ás de Copas", "tipo": "figura" },
+      { "id": "rei-espadas", "nome": "Rei de Espadas", "tipo": "figura" },
+      { "id": "rei-paus", "nome": "Rei de Paus", "tipo": "figura" },
+      { "id": "dama-copas", "nome": "Dama de Copas", "tipo": "figura" },
+      { "id": "dama-ouros", "nome": "Dama de Ouros", "tipo": "figura" },
+      { "id": "dama-paus", "nome": "Dama de Paus", "tipo": "figura" },
+      { "id": "valete-ouros", "nome": "Valete de Ouros", "tipo": "figura" },
+      { "id": "3-copas", "nome": "3 de Copas", "tipo": "numero" },
+      { "id": "3-ouros", "nome": "3 de Ouros", "tipo": "numero" },
+      { "id": "6-espadas", "nome": "6 de Espadas", "tipo": "numero" },
+      { "id": "6-paus", "nome": "6 de Paus", "tipo": "numero" },
+      { "id": "7-espadas", "nome": "7 de Espadas", "tipo": "numero" },
+      { "id": "8-espadas", "nome": "8 de Espadas", "tipo": "numero" },
+      { "id": "8-ouros", "nome": "8 de Ouros", "tipo": "numero" },
+      { "id": "9-paus", "nome": "9 de Paus", "tipo": "numero" },
+      { "id": "10-copas", "nome": "10 de Copas", "tipo": "numero" }
+    ]
+  },
+  "vitral": {
+    "nome": "Vitral",
+    "cartas": [
+      { "id": "as-copas", "nome": "Ás de Copas", "tipo": "figura" },
+      { "id": "as-ouros", "nome": "Ás de Ouros", "tipo": "figura" },
+      { "id": "rei-ouros", "nome": "Rei de Ouros", "tipo": "figura" },
+      { "id": "dama-copas", "nome": "Dama de Copas", "tipo": "figura" },
+      { "id": "dama-ouros", "nome": "Dama de Ouros", "tipo": "figura" },
+      { "id": "dama-paus", "nome": "Dama de Paus", "tipo": "figura" },
+      { "id": "valete-espadas", "nome": "Valete de Espadas", "tipo": "figura" },
+      { "id": "2-ouros", "nome": "2 de Ouros", "tipo": "numero" },
+      { "id": "4-espadas", "nome": "4 de Espadas", "tipo": "numero" },
+      { "id": "4-copas", "nome": "4 de Copas", "tipo": "numero" },
+      { "id": "5-paus", "nome": "5 de Paus", "tipo": "numero" },
+      { "id": "7-espadas", "nome": "7 de Espadas", "tipo": "numero" },
+      { "id": "7-copas", "nome": "7 de Copas", "tipo": "numero" },
+      { "id": "8-copas", "nome": "8 de Copas", "tipo": "numero" },
+      { "id": "8-ouros", "nome": "8 de Ouros", "tipo": "numero" },
+      { "id": "10-ouros", "nome": "10 de Ouros", "tipo": "numero" }
+    ]
+  },
+  "azulejo": {
+    "nome": "Azulejo",
+    "cartas": [
+      { "id": "rei-paus", "nome": "Rei de Paus", "tipo": "figura" },
+      { "id": "dama-espadas", "nome": "Dama de Espadas", "tipo": "figura" },
+      { "id": "dama-copas", "nome": "Dama de Copas", "tipo": "figura" },
+      { "id": "dama-paus", "nome": "Dama de Paus", "tipo": "figura" },
+      { "id": "valete-espadas", "nome": "Valete de Espadas", "tipo": "figura" },
+      { "id": "valete-copas", "nome": "Valete de Copas", "tipo": "figura" },
+      { "id": "valete-ouros", "nome": "Valete de Ouros", "tipo": "figura" },
+      { "id": "2-copas", "nome": "2 de Copas", "tipo": "numero" },
+      { "id": "3-copas", "nome": "3 de Copas", "tipo": "numero" },
+      { "id": "3-paus", "nome": "3 de Paus", "tipo": "numero" },
+      { "id": "4-paus", "nome": "4 de Paus", "tipo": "numero" },
+      { "id": "7-ouros", "nome": "7 de Ouros", "tipo": "numero" },
+      { "id": "8-espadas", "nome": "8 de Espadas", "tipo": "numero" },
+      { "id": "9-espadas", "nome": "9 de Espadas", "tipo": "numero" },
+      { "id": "9-copas", "nome": "9 de Copas", "tipo": "numero" },
+      { "id": "10-paus", "nome": "10 de Paus", "tipo": "numero" }
+    ]
+  }
+}

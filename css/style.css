@@ -22,6 +22,8 @@
   --sombra: 0 1px 2px rgba(26, 43, 60, 0.06), 0 6px 16px rgba(26, 43, 60, 0.08);
   --sombra-forte: 0 20px 50px rgba(26, 43, 60, 0.3);
   --fundo-dialogo: rgba(26, 43, 60, 0.55);
+  --sombra-carta: 0 2px 6px rgba(26, 43, 60, 0.15), 0 14px 32px rgba(26, 43, 60, 0.28);
+  --borda-carta: #ffffff;
 
   --fonte-titulos: "EB Garamond", Georgia, "Times New Roman", serif;
   --fonte-texto: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -59,6 +61,8 @@
   --sombra: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 20px rgba(0, 0, 0, 0.35);
   --sombra-forte: 0 20px 50px rgba(0, 0, 0, 0.6);
   --fundo-dialogo: rgba(0, 0, 0, 0.65);
+  --sombra-carta: 0 2px 6px rgba(0, 0, 0, 0.5), 0 16px 36px rgba(0, 0, 0, 0.65);
+  --borda-carta: #05090f;
 
   color-scheme: dark;
 }
@@ -151,6 +155,34 @@ h3 {
 
 .saltar:focus {
   left: 1rem;
+}
+
+/* Texto pequeno com uma linha de cada lado: —— TEXTO —— */
+.ornamento {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cor-terciaria);
+}
+
+.ornamento::before,
+.ornamento::after {
+  content: "";
+  width: 3rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+/* Variante do rodapé: só os símbolos, mais espaçados */
+.ornamento-rodape {
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.5em;
 }
 
 /* =========================================================
@@ -371,7 +403,7 @@ h3 {
   grid-template-areas:
     "titulo titulo"
     "leque  form"
-    "leque  recorde";
+    ".      recorde";
   align-items: center;
   gap: 1.25rem 3rem;
 }
@@ -382,7 +414,33 @@ h3 {
   text-align: center;
 }
 
+.inicio-titulo .ornamento {
+  margin-top: 0.75rem;
+}
+
+/* ♠ pequeno por cima do título, sem tocar no HTML */
+.inicio-titulo h1::before {
+  content: "♠";
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 1.25rem;
+  color: var(--cor-destaque);
+}
+
+/* Linha por baixo do título: cinzenta, a esbater-se nas pontas */
+.inicio-titulo h1::after {
+  content: "";
+  display: block;
+  height: 3px;
+  margin-top: 0.5rem;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--cor-terciaria), transparent);
+  opacity: 0.6;
+}
+
 .inicio-titulo h1 {
+  width: fit-content;
+  margin-inline: auto;
   font-size: clamp(2.5rem, 6vw, 3.75rem);
 }
 
@@ -405,26 +463,35 @@ h3 {
   position: absolute;
   bottom: 1rem;
   left: 50%;
-  width: 11rem;
+  width: 14rem;
   aspect-ratio: 3 / 4;
-  margin-left: -5.5rem;
+  margin-left: -7rem;
   border-radius: var(--raio-carta);
   background: var(--cor-superficie-3) center / cover no-repeat;
-  box-shadow: var(--sombra);
+  box-shadow: var(--sombra-carta);
   transform-origin: 50% 100%;
+  transition: translate 0.35s ease-out;
 }
 
 .leque-carta-esquerda {
-  transform: rotate(-14deg) translateX(-2.5rem);
+  transform: rotate(-15deg) translateX(-3.5rem);
 }
 
 .leque-carta-direita {
-  transform: rotate(14deg) translateX(2.5rem);
+  transform: rotate(15deg) translateX(3.5rem);
 }
 
 .leque-carta-frente {
   z-index: 1;
-  transform: translateY(-0.75rem);
+  transform: translateY(-1rem) scale(1.04);
+}
+
+/* Ao passar o rato, a carta flutua sem sair do seu lugar no leque */
+@media (hover: hover) {
+  .leque-carta:hover {
+    translate: 0 -1rem;
+    transition-delay: 0.1s;
+  }
 }
 
 /* Cartão "Nova partida" */
@@ -535,6 +602,16 @@ h3 {
 .recorde strong {
   color: var(--cor-destaque);
   font-variant-numeric: tabular-nums;
+}
+
+.erro-formulario {
+  padding: 0.6rem 0.9rem;
+  border-left: 3px solid var(--cor-destaque);
+  border-radius: var(--raio);
+  background: var(--cor-destaque-suave);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--cor-destaque);
 }
 
 /* =========================================================
@@ -659,6 +736,26 @@ h3 {
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.4s ease 0.6s, visibility 0s linear 1s;
+}
+
+/* Par errado: as duas cartas abanam antes de voltarem a virar-se */
+.carta.errada {
+  animation: abanar 0.45s ease-in-out 0.6s;
+}
+
+@keyframes abanar {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-6px);
+  }
+  40%,
+  80% {
+    transform: translateX(6px);
+  }
 }
 
 .carta:focus-visible {
@@ -847,9 +944,47 @@ h3 {
   color: var(--cor-sobre-tinta);
 }
 
+/* Caixa branca com os níveis */
+.caixa-niveis {
+  margin-top: 1.75rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--cor-linha);
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra);
+}
+
+.caixa-niveis h3 {
+  margin-top: 0;
+}
+
 .lista-niveis {
   display: grid;
-  gap: 0.35rem;
+  gap: 0.5rem;
+}
+
+/* Cada nível numa faixa cinzenta com um ponto à esquerda */
+.lista-niveis li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--raio);
+  background: var(--cor-superficie-2);
+}
+
+.lista-niveis li::before {
+  content: "";
+  flex-shrink: 0;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--cor-tinta);
+}
+
+/* O Difícil leva o ponto vermelho */
+.lista-niveis li:last-child::before {
+  background: var(--cor-destaque);
 }
 
 .lista-niveis strong {
@@ -866,22 +1001,38 @@ h3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
-  margin-bottom: 2rem;
+}
+
+/* Cada baralho dentro de uma caixa branca */
+.lista-baralhos li {
+  padding: 1rem;
+  border: 1px solid var(--cor-linha);
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra);
 }
 
 .lista-baralhos figure {
   display: grid;
   justify-items: center;
-  gap: 0.6rem;
+  gap: 0.75rem;
+}
+
+/* Botão "Começar a jogar" centrado */
+.seccao-regras > .btn {
+  display: flex;
+  width: fit-content;
+  margin: 2.5rem auto 0;
 }
 
 .miniatura {
   width: 100%;
-  max-width: 9rem;
+  max-width: 10rem;
   aspect-ratio: 3 / 4;
+  border: 0.4rem solid var(--borda-carta);
   border-radius: var(--raio-carta);
   background: var(--cor-superficie-3) center / cover no-repeat;
-  box-shadow: var(--sombra);
+  box-shadow: var(--sombra-carta);
 }
 
 .lista-baralhos figcaption {
@@ -1028,12 +1179,12 @@ h3 {
   }
 
   .leque {
-    height: 15rem;
+    height: 19rem;
   }
 
   .leque-carta {
-    width: 8rem;
-    margin-left: -4rem;
+    width: 10rem;
+    margin-left: -5rem;
   }
 
   /* No telemóvel a grelha pode fazer scroll: conta só a largura */
@@ -1076,6 +1227,10 @@ h3 {
   .lista-baralhos {
     gap: 0.75rem;
   }
+
+  .lista-baralhos li {
+    padding: 0.5rem;
+  }
 }
 
 /* =========================================================
@@ -1086,7 +1241,8 @@ h3 {
   .carta-face,
   .btn,
   .menu-link,
-  .opcao-nivel {
+  .opcao-nivel,
+  .leque-carta {
     transition: none;
   }
 
@@ -1094,7 +1250,12 @@ h3 {
     transition: opacity 0s linear 0.6s, visibility 0s linear 0.6s;
   }
 
+  .carta.errada {
+    animation: none;
+  }
+
   .btn.a-carregar::before {
     animation-duration: 2s;
   }
+
 }
