@@ -1,8 +1,10 @@
-import { obterBaralhos, caminhoImagem } from "./baralho.js";
+import { obterBaralhos, caminhoImagem, carregarImagem } from "./baralho.js";
+import { criarCarregador } from "./ui.js";
 
 const seccao = document.getElementById("galeria");
 const separadores = document.querySelectorAll("#galeria .separador");
 const imagem = document.getElementById("galeria-imagem");
+const aCarregar = document.getElementById("galeria-a-carregar");
 const campoNome = document.getElementById("galeria-nome");
 const campoPessoa = document.getElementById("galeria-pessoa");
 const campoContador = document.getElementById("galeria-contador");
@@ -10,12 +12,16 @@ const listaMiniaturas = document.getElementById("galeria-miniaturas");
 const botaoAnterior = document.getElementById("galeria-anterior");
 const botaoSeguinte = document.getElementById("galeria-seguinte");
 
+// O ícone de carregamento fica sempre dentro da moldura; só se mostra/esconde
+aCarregar.prepend(criarCarregador());
+
 // O verso entra sempre como primeira carta da galeria
 const VERSO = { id: "verso", nome: "Verso do baralho", tipo: "verso" };
 
 let baralhoAtual = null;
 let cartas = [];
 let indiceAtual = 0;
+let pedidoAtual = 0; // conta os pedidos de imagem, para ignorar os que chegam atrasados
 
 // A carta em destaque usa a versão grande (1200 px); as miniaturas, a normal (600 px)
 function caminhoGrande(baralho, id) {
@@ -68,12 +74,37 @@ function desenharMiniaturas() {
   listaMiniaturas.append(...itens);
 }
 
+// Pré-carrega a imagem grande e só a troca quando está pronta.
+// Enquanto isso, a carta antiga fica esbatida e o ícone aparece por cima.
+async function mostrarImagem(caminho, nome) {
+  const pedido = ++pedidoAtual;
+
+  imagem.classList.add("a-esbater");
+  aCarregar.hidden = false;
+
+  try {
+    await carregarImagem(caminho);
+
+    // Se entretanto foi escolhida outra carta, esta imagem já não interessa
+    if (pedido !== pedidoAtual) return;
+
+    imagem.src = caminho;
+    imagem.alt = nome;
+  } catch (erro) {
+    if (pedido === pedidoAtual) console.error(erro);
+  } finally {
+    if (pedido === pedidoAtual) {
+      imagem.classList.remove("a-esbater");
+      aCarregar.hidden = true;
+    }
+  }
+}
+
 function escolherCarta(indice) {
   indiceAtual = indice;
   const carta = cartas[indice];
 
-  imagem.src = caminhoGrande(baralhoAtual, carta.id);
-  imagem.alt = carta.nome;
+  mostrarImagem(caminhoGrande(baralhoAtual, carta.id), carta.nome);
   campoNome.textContent = carta.nome;
   campoPessoa.textContent = carta.pessoa ?? "";
   campoContador.textContent = `${indice + 1} de ${cartas.length}`;
@@ -112,17 +143,27 @@ listaMiniaturas.addEventListener("click", (evento) => {
 botaoAnterior.addEventListener("click", () => mudarCarta(-1));
 botaoSeguinte.addEventListener("click", () => mudarCarta(1));
 
-// Separadores Clássico / Vitral / Azulejo
-document.querySelector("#galeria .separadores").addEventListener("click", (evento) => {
-  const separador = evento.target.closest(".separador");
-  if (separador) abrirGaleria(separador.dataset.baralho);
-});
-
-// Setas do teclado, só com a galeria aberta e fora de campos de texto
+// Teclado: só com a galeria aberta e fora de campos de texto
 document.addEventListener("keydown", (evento) => {
   const aEscrever = ["INPUT", "SELECT", "TEXTAREA"].includes(evento.target.tagName);
   if (seccao.hidden || aEscrever) return;
 
-  if (evento.key === "ArrowLeft") mudarCarta(-1);
-  if (evento.key === "ArrowRight") mudarCarta(1);
+  switch (evento.key) {
+    case "ArrowLeft":
+      mudarCarta(-1);
+      break;
+    case "ArrowRight":
+      mudarCarta(1);
+      break;
+    case "Home":
+      escolherCarta(0);
+      break;
+    case "End":
+      escolherCarta(cartas.length - 1);
+      break;
+    default:
+      return; // outra tecla: não faz nada
+  }
+
+  evento.preventDefault(); // impede a página de fazer scroll com estas teclas
 });

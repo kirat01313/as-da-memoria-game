@@ -28,7 +28,7 @@ export function caminhoImagem(baralho, id) {
 }
 
 // Transforma o carregamento de uma imagem numa Promise
-function carregarImagem(caminho) {
+export function carregarImagem(caminho) {
   return new Promise((resolve, reject) => {
     const imagem = new Image();
     imagem.onload = () => resolve(imagem);

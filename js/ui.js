@@ -50,11 +50,35 @@ export function aplicarBaralho(baralho) {
   seletorBaralho.value = baralho;
 }
 
+// Cria o ícone de carregamento: anel a girar com os naipes a trocar ao centro
+export function criarCarregador(classeExtra = "") {
+  const carregador = document.createElement("span");
+  carregador.className = `carregador ${classeExtra}`.trim();
+  carregador.setAttribute("aria-hidden", "true");
+
+  const naipes = [
+    ["♠", "naipe-preto"],
+    ["♥", "naipe-vermelho"],
+    ["♦", "naipe-vermelho"],
+    ["♣", "naipe-preto"],
+  ];
+
+  const simbolos = naipes.map(([simbolo, classe]) => {
+    const naipe = document.createElement("span");
+    naipe.className = classe;
+    naipe.textContent = simbolo;
+    return naipe;
+  });
+
+  carregador.append(...simbolos);
+  return carregador;
+}
+
 // Liga e desliga o estado "A carregar…" de um botão
 export function mostrarCarregamento(botao, aCarregar) {
   if (aCarregar) {
     botao.dataset.textoOriginal = botao.textContent;
-    botao.textContent = "A carregar baralho…";
+    botao.replaceChildren(criarCarregador("carregador-pequeno"), "A carregar baralho…");
   } else {
     botao.textContent = botao.dataset.textoOriginal;
   }
