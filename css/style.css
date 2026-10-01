@@ -815,23 +815,74 @@ h3 {
    13. RANKING
    Classe que o JS põe na linha do jogador atual: atual
    ========================================================= */
-.separadores {
+.seccao-ranking {
+  max-width: 52rem;
+}
+
+/* Cabeçalho: etiqueta, título e frase de apresentação */
+.ranking-cabecalho {
+  margin-bottom: 1.75rem;
+  text-align: center;
+}
+
+.ranking-etiqueta {
   display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cor-destaque);
+}
+
+.ranking-etiqueta::before,
+.ranking-etiqueta::after {
+  content: "♦";
+  font-size: 0.6rem;
+}
+
+.ranking-cabecalho h2 {
+  margin: 0.35rem 0 0.5rem;
+  font-size: clamp(2.25rem, 5vw, 3rem);
+}
+
+.ranking-intro {
+  max-width: 34rem;
+  margin-inline: auto;
+  color: var(--cor-texto-suave);
+}
+
+/* Níveis em pílulas */
+.separadores {
+  display: flex;
   gap: 0.25rem;
-  margin-bottom: 1.25rem;
-  padding: 0.25rem;
-  border-radius: var(--raio);
+  width: fit-content;
+  margin: 0 auto 1.75rem;
+  padding: 0.3rem;
+  border: 1px solid var(--cor-linha);
+  border-radius: 999px;
   background: var(--cor-superficie-2);
 }
 
 .separador {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
   padding: 0.45rem 1.1rem;
   border: 0;
-  border-radius: var(--raio);
+  border-radius: 999px;
   background: none;
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--cor-texto-suave);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.separador small {
+  font-size: 0.72rem;
+  font-weight: 500;
+  opacity: 0.75;
 }
 
 .separador:hover {
@@ -839,64 +890,233 @@ h3 {
 }
 
 .separador[aria-pressed="true"] {
-  background: var(--cor-superficie);
-  color: var(--cor-tinta);
-  box-shadow: var(--sombra);
+  background: var(--cor-tinta);
+  color: var(--cor-sobre-tinta);
 }
 
-.tabela-ranking {
-  width: 100%;
+/* Painel com o nível, a tabela e o rodapé */
+.painel-ranking {
   overflow: hidden;
   border: 1px solid var(--cor-linha);
   border-radius: var(--raio-grande);
-  border-collapse: separate;
-  border-spacing: 0;
   background: var(--cor-superficie);
+  box-shadow: var(--sombra);
+}
+
+.painel-ranking-topo {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--cor-linha);
+  background: var(--cor-superficie-2);
+}
+
+.painel-ranking-naipe {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--cor-linha);
+  border-radius: 50%;
+  background: var(--cor-superficie);
+  color: var(--cor-tinta);
+}
+
+.painel-ranking-titulo {
+  font-family: var(--fonte-titulos);
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--cor-tinta);
+}
+
+.painel-ranking-sub {
+  font-size: 0.78rem;
+  color: var(--cor-texto-suave);
+}
+
+.painel-ranking-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-left: auto;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--cor-texto-suave);
+}
+
+.painel-ranking-top::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--cor-destaque);
+}
+
+/* Tabela */
+.tabela-ranking {
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .tabela-ranking th,
 .tabela-ranking td {
-  padding: 0.8rem 1rem;
+  padding: 0.85rem 1.5rem;
   text-align: left;
 }
 
 .tabela-ranking th {
-  border-bottom: 1px solid var(--cor-linha);
-  background: var(--cor-superficie-2);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
+  padding-block: 0.9rem 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--cor-texto-suave);
 }
 
 .tabela-ranking td {
-  border-bottom: 1px solid var(--cor-linha);
+  border-top: 1px solid var(--cor-linha);
+  vertical-align: middle;
+}
+
+.tabela-ranking .col-numero {
+  text-align: right;
+}
+
+/* Posição grande e elegante; o 1.º lugar leva uma espada */
+.posicao {
+  font-family: var(--fonte-titulos);
+  font-size: 1.5rem;
+  font-weight: 600;
   font-variant-numeric: tabular-nums;
+  color: var(--cor-tinta);
 }
 
-.tabela-ranking tbody tr:last-child td {
-  border-bottom: 0;
-}
-
-/* Espada antes do 1.º lugar */
-.tabela-ranking tbody tr:first-child td:first-child::before {
-  content: "♠ ";
+.tabela-ranking tbody tr:first-child .posicao::after {
+  content: "♠";
+  margin-left: 0.2rem;
+  font-size: 0.75rem;
+  vertical-align: super;
   color: var(--cor-destaque);
 }
 
+/* Jogador: inicial num círculo + nome */
+.jogador {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.jogador-inicial {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--cor-superficie-3);
+  font-family: var(--fonte-titulos);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--cor-tinta);
+}
+
+.jogador-nome {
+  font-family: var(--fonte-titulos);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--cor-tinta);
+}
+
+.selo-tu {
+  padding: 0.1rem 0.45rem;
+  border-radius: var(--raio);
+  background: var(--cor-destaque);
+  font-size: 0.68rem;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--cor-sobre-tinta);
+}
+
+.col-tempo,
+.col-jogadas {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--cor-tinta);
+}
+
+.col-data {
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+}
+
+/* Linha do jogador atual: fundo rosado, barra à esquerda e texto em destaque */
 .tabela-ranking tr.atual td {
   background: var(--cor-destaque-suave);
-  font-weight: 600;
+}
+
+.tabela-ranking tr.atual td:first-child {
+  box-shadow: inset 3px 0 0 var(--cor-destaque);
+}
+
+.tabela-ranking tr.atual .posicao,
+.tabela-ranking tr.atual .jogador-nome,
+.tabela-ranking tr.atual .col-tempo,
+.tabela-ranking tr.atual .col-jogadas {
+  color: var(--cor-destaque);
+}
+
+.tabela-ranking tr.atual .jogador-inicial {
+  background: var(--cor-destaque);
+  color: var(--cor-sobre-tinta);
 }
 
 .ranking-vazio {
   padding: 2rem;
+  border-top: 1px solid var(--cor-linha);
   text-align: center;
   color: var(--cor-texto-suave);
 }
 
-.seccao-ranking > .btn {
-  margin-top: 1.5rem;
+/* Rodapé do painel: nota e botão */
+.painel-ranking-rodape {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--cor-linha);
+}
+
+.painel-ranking-nota {
+  font-size: 0.8rem;
+  color: var(--cor-texto-suave);
+}
+
+.btn-jogar-nivel::after {
+  content: "▸";
+}
+
+/* Citação por baixo do painel */
+.citacao-ranking {
+  margin: 2.5rem auto 0;
+  font-family: var(--fonte-titulos);
+  font-size: 1.05rem;
+  font-style: italic;
+  text-align: center;
+  color: var(--cor-texto-suave);
+}
+
+.citacao-ranking::before {
+  content: "♠";
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  font-style: normal;
+  color: var(--cor-terciaria);
 }
 
 /* =========================================================
@@ -1222,6 +1442,25 @@ h3 {
   .tabela-ranking th:nth-child(5),
   .tabela-ranking td:nth-child(5) {
     display: none;
+  }
+
+  .tabela-ranking th,
+  .tabela-ranking td {
+    padding-inline: 0.75rem;
+  }
+
+  .posicao {
+    font-size: 1.2rem;
+  }
+
+  /* As pílulas ficam só com o nome do nível */
+  .separador small {
+    display: none;
+  }
+
+  .painel-ranking-topo,
+  .painel-ranking-rodape {
+    padding-inline: 1rem;
   }
 
   .lista-baralhos {
