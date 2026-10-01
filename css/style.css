@@ -536,3 +536,180 @@ h3 {
   color: var(--cor-destaque);
   font-variant-numeric: tabular-nums;
 }
+
+/* =========================================================
+   10. JOGO — grelha
+   O tamanho das cartas ajusta-se à largura E à altura do ecrã,
+   para a grelha inteira caber sem scroll.
+   O JS põe data-nivel="facil|medio|dificil" na #grelha.
+   ========================================================= */
+.seccao-jogo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding-block: 1rem;
+}
+
+.seccao-jogo > h2 {
+  margin-bottom: 0;
+  font-size: 1.5rem;
+}
+
+.mensagem {
+  min-height: 1.6em; /* reserva a linha para a grelha não saltar */
+  font-weight: 500;
+  text-align: center;
+  color: var(--cor-destaque);
+}
+
+.grelha {
+  --colunas: 4;
+  --linhas: 4;
+  --espaco: 0.75rem;
+  --carta-largura: max(
+    4.5rem,
+    min(
+      9.5rem,
+      calc((100vw - 2rem - (var(--colunas) - 1) * var(--espaco)) / var(--colunas)),
+      calc((100vh - 16.5rem - (var(--linhas) - 1) * var(--espaco)) / var(--linhas) * 0.75)
+    )
+  );
+
+  display: grid;
+  grid-template-columns: repeat(var(--colunas), var(--carta-largura));
+  justify-content: center;
+  gap: var(--espaco);
+}
+
+.grelha[data-nivel="facil"] {
+  --colunas: 4;
+  --linhas: 3;
+}
+
+.grelha[data-nivel="medio"] {
+  --colunas: 4;
+  --linhas: 4;
+}
+
+.grelha[data-nivel="dificil"] {
+  --colunas: 6;
+  --linhas: 4;
+}
+
+/* =========================================================
+   11. JOGO — carta (flip e desaparecer ao fazer par)
+   Classes que o JS põe: virada, encontrada
+   ========================================================= */
+.carta {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  padding: 0;
+  border: 0;
+  border-radius: var(--raio-carta);
+  background: none;
+  perspective: 1000px;
+}
+
+.carta-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: var(--raio-carta);
+  box-shadow: var(--sombra);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transition: transform 0.5s ease, box-shadow 0.2s;
+}
+
+.carta-verso {
+  background: var(--cor-tinta) url("../img/baralhos/classico/verso.webp") center / cover no-repeat;
+}
+
+.carta-frente {
+  background: #ffffff;
+  transform: rotateY(180deg);
+}
+
+.carta-frente img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carta:not(.virada):hover .carta-verso {
+  box-shadow: 0 0 0 2px var(--cor-destaque), var(--sombra);
+}
+
+.carta.virada {
+  cursor: default;
+}
+
+.carta.virada .carta-verso {
+  transform: rotateY(180deg);
+}
+
+.carta.virada .carta-frente {
+  transform: rotateY(0deg);
+}
+
+/* Par encontrado: mostra 0,6 s, desvanece e deixa o espaço vazio */
+.carta.encontrada {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.6s, visibility 0s linear 1s;
+}
+
+.carta:focus-visible {
+  outline-offset: 3px;
+}
+
+/* =========================================================
+   12. JOGO — barra de estatísticas
+   ========================================================= */
+.barra-jogo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  width: 100%;
+  max-width: 48rem;
+  padding: 0.9rem 1.25rem;
+  border: 1px solid var(--cor-linha);
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra);
+}
+
+.barra-jogador {
+  font-weight: 600;
+  color: var(--cor-tinta);
+}
+
+.estatisticas {
+  display: flex;
+  gap: 1.75rem;
+}
+
+.estatisticas dt {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cor-texto-suave);
+}
+
+.estatisticas dd {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--cor-tinta);
+}
+
+.barra-acoes {
+  display: flex;
+  gap: 0.5rem;
+}
