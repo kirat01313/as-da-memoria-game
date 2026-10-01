@@ -129,30 +129,52 @@
     </section>
 
     <section id="ranking" class="seccao seccao-ranking" aria-labelledby="titulo-ranking" hidden>
-      <h2 id="titulo-ranking">Ranking</h2>
+      <header class="ranking-cabecalho">
+        <p class="ranking-etiqueta">Quadro de honra</p>
+        <h2 id="titulo-ranking">Ranking</h2>
+        <p class="ranking-intro">Os melhores tempos de cada nível. Em caso de empate, fica à frente quem fez menos jogadas.</p>
+      </header>
 
       <div class="separadores" role="group" aria-label="Nível do ranking">
-        <button class="separador" type="button" data-nivel="facil" aria-pressed="true">Fácil</button>
-        <button class="separador" type="button" data-nivel="medio" aria-pressed="false">Médio</button>
-        <button class="separador" type="button" data-nivel="dificil" aria-pressed="false">Difícil</button>
+        <button class="separador" type="button" data-nivel="facil" aria-pressed="true">Fácil <small>12 cartas</small></button>
+        <button class="separador" type="button" data-nivel="medio" aria-pressed="false">Médio <small>16 cartas</small></button>
+        <button class="separador" type="button" data-nivel="dificil" aria-pressed="false">Difícil <small>24 cartas</small></button>
       </div>
 
-      <table class="tabela-ranking" aria-labelledby="titulo-ranking">
-        <thead>
-          <tr>
-            <th scope="col">Posição</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Tempo</th>
-            <th scope="col">Jogadas</th>
-            <th scope="col">Data</th>
-          </tr>
-        </thead>
-        <tbody id="ranking-corpo"></tbody>
-      </table>
+      <div class="painel-ranking">
+        <div class="painel-ranking-topo">
+          <span class="painel-ranking-naipe" aria-hidden="true">♠</span>
+          <div>
+            <p id="ranking-nivel" class="painel-ranking-titulo">Nível Fácil</p>
+            <p id="ranking-pares" class="painel-ranking-sub">6 pares</p>
+          </div>
+          <span class="painel-ranking-top">Top 10</span>
+        </div>
 
-      <p id="ranking-vazio" class="ranking-vazio" hidden>Ainda ninguém jogou neste nível.</p>
+        <table class="tabela-ranking" aria-labelledby="titulo-ranking">
+          <thead>
+            <tr>
+              <th scope="col">Pos.</th>
+              <th scope="col">Jogador</th>
+              <th scope="col" class="col-numero">Tempo</th>
+              <th scope="col" class="col-numero">Jogadas</th>
+              <th scope="col" class="col-numero">Data</th>
+            </tr>
+          </thead>
+          <tbody id="ranking-corpo"></tbody>
+        </table>
 
-      <button class="btn btn-secundario" type="button" data-seccao="inicio">Voltar à mesa</button>
+        <p id="ranking-vazio" class="ranking-vazio" hidden>Ainda ninguém jogou neste nível. Sê o primeiro!</p>
+
+        <div class="painel-ranking-rodape">
+          <p class="painel-ranking-nota">Os resultados ficam guardados neste browser.</p>
+          <button id="btn-jogar-nivel" class="btn btn-principal btn-jogar-nivel" type="button">Jogar este nível</button>
+        </div>
+      </div>
+
+      <blockquote class="citacao-ranking">
+        <p>«A constância da mente vence a pressa do acaso.»</p>
+      </blockquote>
     </section>
 
     <section id="como-jogar" class="seccao seccao-regras" aria-labelledby="titulo-regras" hidden>
