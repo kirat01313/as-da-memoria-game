@@ -1410,9 +1410,9 @@ h3 {
   transition: opacity 0.2s;
 }
 
-/* Enquanto a carta nova descarrega, a antiga fica esbatida */
+/* Enquanto a carta nova descarrega, a antiga fica quase apagada */
 .galeria-imagem.a-esbater {
-  opacity: 0.35;
+  opacity: 0.08;
 }
 
 .galeria-a-carregar {
