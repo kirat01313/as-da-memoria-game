@@ -1,5 +1,6 @@
-import { baralhar } from "./utils.js";
+import { baralhar, formatarTempo } from "./utils.js"; // ★ formatarTempo
 import { caminhoImagem, NIVEIS } from "./baralho.js";
+import { criarCronometro } from "./cronometro.js"; // ★
 
 // Tempo para ver um par errado antes de as cartas voltarem a virar-se (ms)
 const PAUSA_PAR_ERRADO = 1100;
@@ -10,6 +11,12 @@ const campoJogadas = document.getElementById("jogadas");
 const campoPares = document.getElementById("pares");
 const campoJogador = document.getElementById("info-jogador");
 const campoNivel = document.getElementById("info-nivel");
+const campoTempo = document.getElementById("tempo"); // ★
+
+// ★ Um só cronómetro para o jogo; atualiza o mostrador a cada segundo
+const cronometro = criarCronometro((segundos) => {
+  campoTempo.textContent = formatarTempo(segundos);
+});
 
 // Estado da partida atual (null = não há partida)
 let partida = null;
@@ -43,7 +50,9 @@ export function iniciarJogo(config) {
 
   campoJogador.textContent = nome;
   campoNivel.textContent = NIVEIS[nivel].nome;
-  mensagem.textContent = `Boa sorte, ${nome}! Encontra os ${cartas.length} pares.`;
+  // ★ texto novo: avisa quando começa o tempo
+  mensagem.textContent = `Boa sorte, ${nome}! O tempo começa quando virares a primeira carta.`;
+  cronometro.reiniciar(); // ★
   atualizarEstatisticas();
 }
 
@@ -53,6 +62,7 @@ export function reiniciarJogo() {
 }
 
 export function sairDoJogo() {
+  cronometro.reiniciar(); // ★
   partida = null;
   grelha.innerHTML = "";
   mensagem.textContent = "";
@@ -95,6 +105,9 @@ grelha.addEventListener("click", (evento) => {
 
 function virarCarta(botao) {
   if (!jogoEmCurso() || partida.bloqueada || botao.classList.contains("virada")) return;
+
+  // ★ A primeira carta virada põe o cronómetro a contar
+  if (!cronometro.aCorrer()) cronometro.iniciar();
 
   const carta = partida.mesa.find((item) => item.uid === botao.dataset.uid);
 
@@ -149,9 +162,11 @@ function virarCarta(botao) {
 }
 
 function terminarJogo() {
+  cronometro.parar(); // ★
   partida.terminada = true;
   mensagem.textContent = "Baralho completo!";
 
   const { nome, nivel, baralho, aoTerminar } = partida.config;
-  aoTerminar({ nome, nivel, baralho, jogadas: partida.jogadas });
+  // ★ o resultado leva agora os segundos
+  aoTerminar({ nome, nivel, baralho, jogadas: partida.jogadas, segundos: cronometro.obterSegundos() });
 }

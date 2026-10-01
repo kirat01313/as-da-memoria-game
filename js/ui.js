@@ -1,3 +1,4 @@
+import { formatarTempo } from "./utils.js";
 const raiz = document.documentElement;
 const seccoes = document.querySelectorAll("main > .seccao");
 const linksMenu = document.querySelectorAll(".menu-link");
@@ -53,7 +54,8 @@ export function bloquearSeletorBaralho(bloqueado) {
   seletorBaralho.disabled = bloqueado;
 }
 
-export function mostrarVitoria({ jogadas }) {
+export function mostrarVitoria({ jogadas, segundos }) {
+  document.getElementById("vitoria-tempo").textContent = formatarTempo(segundos);
   document.getElementById("vitoria-jogadas").textContent = jogadas;
   dialogoVitoria.showModal();
 }
