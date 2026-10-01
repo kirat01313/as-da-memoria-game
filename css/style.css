@@ -361,3 +361,178 @@ h3 {
   margin-bottom: 1.5rem;
   font-size: clamp(1.75rem, 3vw, 2.25rem);
 }
+
+/* =========================================================
+   9. INÍCIO — título, leque de cartas e nova partida
+   ========================================================= */
+.seccao-inicio {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 26rem);
+  grid-template-areas:
+    "titulo titulo"
+    "leque  form"
+    "leque  recorde";
+  align-items: center;
+  gap: 1.25rem 3rem;
+}
+
+.inicio-titulo {
+  grid-area: titulo;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.inicio-titulo h1 {
+  font-size: clamp(2.5rem, 6vw, 3.75rem);
+}
+
+.subtitulo {
+  margin-top: 0.5rem;
+  font-family: var(--fonte-titulos);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--cor-texto-suave);
+}
+
+/* Leque: as três cartas empilhadas e rodadas a partir da base */
+.leque {
+  grid-area: leque;
+  position: relative;
+  height: 22rem;
+}
+
+.leque-carta {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  width: 11rem;
+  aspect-ratio: 3 / 4;
+  margin-left: -5.5rem;
+  border-radius: var(--raio-carta);
+  background: var(--cor-superficie-3) center / cover no-repeat;
+  box-shadow: var(--sombra);
+  transform-origin: 50% 100%;
+}
+
+.leque-carta-esquerda {
+  transform: rotate(-14deg) translateX(-2.5rem);
+}
+
+.leque-carta-direita {
+  transform: rotate(14deg) translateX(2.5rem);
+}
+
+.leque-carta-frente {
+  z-index: 1;
+  transform: translateY(-0.75rem);
+}
+
+/* Cartão "Nova partida" */
+.cartao-partida {
+  grid-area: form;
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.75rem;
+  border: 1px solid var(--cor-linha);
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra);
+}
+
+.cartao-partida h2 {
+  margin-bottom: 0.25rem;
+  font-size: 1.6rem;
+}
+
+.cartao-partida > label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.cartao-partida input[type="text"] {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--cor-linha);
+  border-radius: var(--raio);
+  background: var(--cor-fundo);
+}
+
+.cartao-partida input[type="text"]::placeholder {
+  color: var(--cor-texto-suave);
+  opacity: 0.8;
+}
+
+.niveis {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0;
+  border: 0;
+}
+
+.niveis legend {
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Cada nível é uma linha clicável; a escolhida fica realçada */
+.opcao-nivel {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--cor-linha);
+  border-radius: var(--raio);
+  background: var(--cor-superficie-2);
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.opcao-nivel:hover {
+  border-color: var(--cor-terciaria);
+}
+
+.opcao-nivel:has(input:checked) {
+  border-color: var(--cor-tinta);
+  background: var(--cor-superficie);
+  box-shadow: inset 0 0 0 1px var(--cor-tinta);
+}
+
+.opcao-nivel input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--cor-tinta);
+}
+
+.opcao-nivel span {
+  font-weight: 600;
+}
+
+.opcao-nivel small {
+  font-size: 0.8rem;
+  color: var(--cor-texto-suave);
+}
+
+.cartao-partida .btn-principal {
+  width: 100%;
+  margin-top: 0.75rem;
+  padding-block: 0.85rem;
+}
+
+.recorde {
+  grid-area: recorde;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+}
+
+.recorde strong {
+  color: var(--cor-destaque);
+  font-variant-numeric: tabular-nums;
+}
