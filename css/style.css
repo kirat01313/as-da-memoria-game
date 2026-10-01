@@ -394,6 +394,32 @@ h3 {
   font-size: clamp(1.75rem, 3vw, 2.25rem);
 }
 
+/* Cabeçalho centrado das secções (Ranking, Como jogar) */
+.cabecalho-seccao {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.cabecalho-seccao h2 {
+  margin: 0.35rem 0 0.5rem;
+  font-size: clamp(2.25rem, 5vw, 3rem);
+}
+
+.cabecalho-seccao-intro {
+  max-width: 34rem;
+  margin-inline: auto;
+  color: var(--cor-texto-suave);
+}
+
+/* Variante com um ♠ pequeno por cima do título */
+.cabecalho-com-naipe h2::before {
+  content: "♠";
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 1.1rem;
+  color: var(--cor-destaque);
+}
+
 /* =========================================================
    9. INÍCIO — título, leque de cartas e nova partida
    ========================================================= */
@@ -819,12 +845,7 @@ h3 {
   max-width: 52rem;
 }
 
-/* Cabeçalho: etiqueta, título e frase de apresentação */
-.ranking-cabecalho {
-  margin-bottom: 1.75rem;
-  text-align: center;
-}
-
+/* Etiqueta "Quadro de honra" por cima do título */
 .ranking-etiqueta {
   display: inline-flex;
   align-items: center;
@@ -840,17 +861,6 @@ h3 {
 .ranking-etiqueta::after {
   content: "♦";
   font-size: 0.6rem;
-}
-
-.ranking-cabecalho h2 {
-  margin: 0.35rem 0 0.5rem;
-  font-size: clamp(2.25rem, 5vw, 3rem);
-}
-
-.ranking-intro {
-  max-width: 34rem;
-  margin-inline: auto;
-  color: var(--cor-texto-suave);
 }
 
 /* Níveis em pílulas */
@@ -1123,7 +1133,7 @@ h3 {
    14. COMO JOGAR
    ========================================================= */
 .seccao-regras {
-  max-width: 48rem;
+  max-width: 52rem;
 }
 
 .seccao-regras h3 {
@@ -1131,37 +1141,47 @@ h3 {
   font-size: 1.4rem;
 }
 
-/* Passos numerados com counter, como no projeto 1 */
+/* Passos numerados com counter, numa grelha de 2 colunas */
 .passos {
   display: grid;
-  gap: 0.75rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
   counter-reset: passo;
 }
 
 .passos li {
-  display: grid;
-  grid-template-columns: 2.25rem 1fr;
+  display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.9rem 1.1rem;
+  padding: 1.1rem 1.25rem;
   border: 1px solid var(--cor-linha);
   border-radius: var(--raio-grande);
   background: var(--cor-superficie);
+  box-shadow: var(--sombra);
+  font-size: 0.92rem;
   counter-increment: passo;
 }
 
+/* Número num quadrado claro, com a letra dos títulos */
 .passos li::before {
   content: counter(passo);
   display: grid;
   place-items: center;
+  flex-shrink: 0;
   width: 2.25rem;
   height: 2.25rem;
-  border-radius: 50%;
-  background: var(--cor-tinta);
+  border-radius: 0.375rem;
+  background: var(--cor-superficie-2);
   font-family: var(--fonte-titulos);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 600;
-  color: var(--cor-sobre-tinta);
+  color: var(--cor-tinta);
+}
+
+/* O último passo (o objetivo) em destaque */
+.passos li:last-child::before {
+  background: var(--cor-destaque-suave);
+  color: var(--cor-destaque);
 }
 
 /* Caixa branca com os níveis */
@@ -1247,12 +1267,20 @@ h3 {
 
 .miniatura {
   width: 100%;
-  max-width: 10rem;
   aspect-ratio: 3 / 4;
   border: 0.4rem solid var(--borda-carta);
   border-radius: var(--raio-carta);
   background: var(--cor-superficie-3) center / cover no-repeat;
   box-shadow: var(--sombra-carta);
+  transition: translate 0.35s ease-out;
+}
+
+/* Ao passar o rato pela caixa do baralho, a carta flutua */
+@media (hover: hover) {
+  .lista-baralhos li:hover .miniatura {
+    translate: 0 -0.6rem;
+    transition-delay: 0.1s;
+  }
 }
 
 .lista-baralhos figcaption {
@@ -1407,6 +1435,10 @@ h3 {
     margin-left: -5rem;
   }
 
+  .passos {
+    grid-template-columns: 1fr;
+  }
+
   /* No telemóvel a grelha pode fazer scroll: conta só a largura */
   .grelha {
     --carta-largura: min(
@@ -1481,7 +1513,8 @@ h3 {
   .btn,
   .menu-link,
   .opcao-nivel,
-  .leque-carta {
+  .leque-carta,
+  .miniatura {
     transition: none;
   }
 
