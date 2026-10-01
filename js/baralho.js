@@ -10,7 +10,7 @@ export const NIVEIS = {
 // Guarda o JSON depois da primeira leitura, para não o pedir a cada partida
 let baralhosEmCache = null;
 
-async function obterBaralhos() {
+export async function obterBaralhos() {
   if (baralhosEmCache) return baralhosEmCache;
 
   const resposta = await fetch("dados/baralhos.json");
