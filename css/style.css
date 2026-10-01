@@ -152,3 +152,212 @@ h3 {
 .saltar:focus {
   left: 1rem;
 }
+
+/* =========================================================
+   5. BOTÕES
+   ========================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  border: 1px solid transparent;
+  border-radius: var(--raio);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.btn-principal {
+  background: var(--cor-tinta);
+  color: var(--cor-sobre-tinta);
+}
+
+.btn-principal:hover {
+  background: var(--cor-tinta-2);
+}
+
+.btn-secundario {
+  border-color: var(--cor-linha);
+  background: transparent;
+  color: var(--cor-tinta);
+}
+
+.btn-secundario:hover {
+  border-color: var(--cor-terciaria);
+  background: var(--cor-superficie-2);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cor-destaque);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Estado "A carregar…": o JS junta a classe a-carregar ao botão */
+.btn.a-carregar::before {
+  content: "";
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: rodar 0.8s linear infinite;
+}
+
+@keyframes rodar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   6. CABEÇALHO
+   ========================================================= */
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.75rem max(1rem, calc((100% - var(--largura-max)) / 2));
+  border-bottom: 1px solid var(--cor-linha);
+  background: var(--cor-fundo);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--fonte-titulos);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--cor-tinta);
+}
+
+.logo-naipe {
+  color: var(--cor-destaque);
+}
+
+.menu ul {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.menu-link {
+  padding: 0.4rem 0.85rem;
+  border: 0;
+  border-radius: var(--raio);
+  background: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--cor-texto-suave);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.menu-link:hover {
+  background: var(--cor-superficie-2);
+  color: var(--cor-tinta);
+}
+
+.menu-link[aria-current="page"] {
+  background: var(--cor-tinta);
+  color: var(--cor-sobre-tinta);
+}
+
+.cabecalho-acoes {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+.seletor-baralho {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cor-texto-suave);
+}
+
+.seletor-baralho select {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--cor-linha);
+  border-radius: var(--raio);
+  background: var(--cor-superficie);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--cor-texto);
+}
+
+/* Durante a partida, o JS desativa o seletor */
+.seletor-baralho select:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-tema {
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--cor-linha);
+  border-radius: var(--raio);
+  background: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-tema:hover {
+  background: var(--cor-superficie-2);
+}
+
+.btn-tema[aria-pressed="true"] {
+  border-color: var(--cor-tinta);
+  background: var(--cor-tinta);
+  color: var(--cor-sobre-tinta);
+}
+
+/* =========================================================
+   7. RODAPÉ
+   ========================================================= */
+.rodape {
+  padding: 1.5rem 1rem;
+  border-top: 1px solid var(--cor-linha);
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--cor-texto-suave);
+}
+
+/* =========================================================
+   8. SECÇÕES (base comum)
+   ========================================================= */
+.seccao {
+  width: 100%;
+  max-width: var(--largura-max);
+  margin-inline: auto;
+  padding: 2.5rem 1rem 3rem;
+}
+
+.seccao > h2 {
+  margin-bottom: 1.5rem;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+}
