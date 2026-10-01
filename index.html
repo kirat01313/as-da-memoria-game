@@ -135,7 +135,75 @@
       </div>
     </section>
 
-    <!-- PARTE 4: secções ranking e como jogar -->
+    <section id="ranking" class="seccao seccao-ranking" aria-labelledby="titulo-ranking" hidden>
+      <h2 id="titulo-ranking">Ranking</h2>
+
+      <div class="separadores" role="group" aria-label="Nível do ranking">
+        <button class="separador" type="button" data-nivel="facil" aria-pressed="true">Fácil</button>
+        <button class="separador" type="button" data-nivel="medio" aria-pressed="false">Médio</button>
+        <button class="separador" type="button" data-nivel="dificil" aria-pressed="false">Difícil</button>
+      </div>
+
+      <table class="tabela-ranking" aria-labelledby="titulo-ranking">
+        <thead>
+          <tr>
+            <th scope="col">Posição</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Tempo</th>
+            <th scope="col">Jogadas</th>
+            <th scope="col">Data</th>
+          </tr>
+        </thead>
+        <tbody id="ranking-corpo"></tbody>
+      </table>
+
+      <p id="ranking-vazio" class="ranking-vazio" hidden>Ainda ninguém jogou neste nível.</p>
+
+      <button class="btn btn-secundario" type="button" data-seccao="inicio">Voltar à mesa</button>
+    </section>
+
+    <section id="como-jogar" class="seccao seccao-regras" aria-labelledby="titulo-regras" >
+      <h2 id="titulo-regras">Como jogar</h2>
+
+      <ol class="passos">
+        <li>Escolhe o baralho no topo da página e o nível.</li>
+        <li>Vira duas cartas de cada vez.</li>
+        <li>Se forem iguais, saem da mesa. Se não, voltam a virar-se para baixo.</li>
+        <li>Encontra todos os pares no menor tempo e com menos jogadas.</li>
+      </ol>
+
+      <h3>Níveis</h3>
+      <ul class="lista-niveis">
+        <li><strong>Fácil</strong> — 12 cartas (6 pares)</li>
+        <li><strong>Médio</strong> — 16 cartas (8 pares)</li>
+        <li><strong>Difícil</strong> — 24 cartas (12 pares)</li>
+      </ul>
+      <p class="nota">Cada vez que viras duas cartas conta como uma jogada.</p>
+
+      <h3>Baralhos</h3>
+      <ul class="lista-baralhos">
+        <li>
+          <figure>
+            <div class="miniatura miniatura-classico"></div>
+            <figcaption>Clássico</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <div class="miniatura miniatura-vitral"></div>
+            <figcaption>Vitral</figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure>
+            <div class="miniatura miniatura-azulejo"></div>
+            <figcaption>Azulejo</figcaption>
+          </figure>
+        </li>
+      </ul>
+
+      <button class="btn btn-principal" type="button" data-seccao="inicio">Começar a jogar</button>
+    </section>
   </main>
 
   <!-- PARTE 5: diálogo de vitória -->
