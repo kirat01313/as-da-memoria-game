@@ -93,7 +93,47 @@
         <button class="btn-link" type="button" data-seccao="ranking">Ver ranking</button>
       </p>
     </section>
-    <!-- PARTE 3: secção jogo -->
+    
+    <section id="jogo" class="seccao seccao-jogo" aria-labelledby="titulo-jogo" hidden>
+      <h2 id="titulo-jogo">Partida em curso</h2>
+      <p id="mensagem-jogo" class="mensagem" aria-live="polite"></p>
+
+      <div id="grelha" class="grelha">
+        <!-- CARTA DE TESTE: só para estilizar no CSS. Apagar quando o JS gerar as cartas. -->
+        <button class="carta" type="button" aria-label="Carta virada para baixo">
+          <span class="carta-face carta-verso"></span>
+          <span class="carta-face carta-frente">
+            <img src="img/baralhos/classico/rei-espadas.webp" alt="Rei de Espadas">
+          </span>
+        </button>
+      </div>
+
+      <div class="barra-jogo">
+        <p class="barra-jogador">
+          <span id="info-jogador">Jogador</span> · <span id="info-nivel">Médio</span>
+        </p>
+
+        <dl class="estatisticas">
+          <div>
+            <dt>Tempo</dt>
+            <dd id="tempo">0:00</dd>
+          </div>
+          <div>
+            <dt>Jogadas</dt>
+            <dd id="jogadas">0</dd>
+          </div>
+          <div>
+            <dt>Pares</dt>
+            <dd id="pares">0/8</dd>
+          </div>
+        </dl>
+
+        <div class="barra-acoes">
+          <button id="btn-reiniciar" class="btn btn-principal" type="button">Reiniciar</button>
+          <button id="btn-sair" class="btn btn-secundario" type="button">Sair</button>
+        </div>
+      </div>
+    </section>
 
     <!-- PARTE 4: secções ranking e como jogar -->
   </main>
