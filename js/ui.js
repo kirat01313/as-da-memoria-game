@@ -4,7 +4,6 @@ import { NIVEIS } from "./baralho.js"; // ★
 const raiz = document.documentElement;
 const seccoes = document.querySelectorAll("main > .seccao");
 const linksMenu = document.querySelectorAll(".menu-link");
-const botaoTema = document.getElementById("btn-tema");
 const seletorBaralho = document.getElementById("seletor-baralho");
 const dialogoVitoria = document.getElementById("dialogo-vitoria");
 
@@ -40,9 +39,9 @@ export function mostrarSeccao(id) {
   window.scrollTo(0, 0);
 }
 
+// O ícone e o texto do botão trocam no CSS, a partir deste data-tema
 export function aplicarTema(tema) {
   raiz.dataset.tema = tema;
-  botaoTema.setAttribute("aria-pressed", String(tema === "escuro"));
 }
 
 export function aplicarBaralho(baralho) {

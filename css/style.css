@@ -404,53 +404,115 @@ h3 {
   margin-left: auto;
 }
 
+/* Seletor de baralho: o <select> é a caixa toda; o rótulo "♠ Baralho:"
+   e a seta ficam por cima dele, sem apanhar cliques */
 .seletor-baralho {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+}
+
+.seletor-baralho-rotulo {
+  position: absolute;
+  left: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9rem;
   color: var(--cor-texto-suave);
+  pointer-events: none; /* o clique passa para o <select> que está por baixo */
+}
+
+.seletor-baralho-naipe {
+  color: var(--cor-destaque);
 }
 
 .seletor-baralho select {
-  padding: 0.4rem 0.6rem;
+  appearance: none; /* tira a seta nativa do navegador */
+  height: 2.5rem;
+  padding: 0 2.4rem 0 5.6rem; /* esquerda: espaço do rótulo; direita: espaço da seta */
   border: 1px solid var(--cor-linha);
   border-radius: var(--raio);
-  background: var(--cor-superficie);
+  background: var(--cor-superficie-2);
   font-size: 0.9rem;
-  font-weight: 500;
-  letter-spacing: normal;
-  text-transform: none;
-  color: var(--cor-texto);
+  font-weight: 600;
+  color: var(--cor-tinta);
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
-/* Durante a partida, o JS desativa o seletor */
-.seletor-baralho select:disabled {
+.seletor-baralho select:hover {
+  border-color: var(--cor-terciaria);
+  background: var(--cor-superficie-3);
+}
+
+/* Seta: um quadrado com duas bordas, rodado 45° */
+.seletor-baralho::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0.95rem;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-right: 2px solid var(--cor-texto-suave);
+  border-bottom: 2px solid var(--cor-texto-suave);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+/* Durante a partida, o JS desativa o seletor: a caixa inteira fica esbatida */
+.seletor-baralho:has(select:disabled) {
   opacity: 0.55;
+}
+
+.seletor-baralho select:disabled {
   cursor: not-allowed;
 }
 
 .btn-tema {
-  padding: 0.4rem 0.85rem;
-  border: 1px solid var(--cor-linha);
+  position: relative; /* segura o texto "Tema:" escondido */
+  display: flex;
+  align-items: center;
+  height: 2.5rem;
+  padding: 0 0.85rem;
+  border: 1px solid transparent;
   border-radius: var(--raio);
-  background: none;
+  background: var(--cor-superficie-2);
   font-size: 0.85rem;
   font-weight: 500;
+  color: var(--cor-texto-suave);
   transition: background-color 0.2s, color 0.2s;
 }
 
 .btn-tema:hover {
-  background: var(--cor-superficie-2);
+  background: var(--cor-superficie-3);
+  color: var(--cor-tinta);
 }
 
-.btn-tema[aria-pressed="true"] {
-  border-color: var(--cor-tinta);
-  background: var(--cor-tinta);
-  color: var(--cor-sobre-tinta);
+.tema-estado {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.tema-icone {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Claro por defeito: sol + "Claro". Com data-tema="escuro": lua + "Escuro" */
+.btn-tema .tema-escuro,
+[data-tema="escuro"] .btn-tema .tema-claro {
+  display: none;
+}
+
+[data-tema="escuro"] .btn-tema .tema-escuro {
+  display: flex;
 }
 
 /* =========================================================
