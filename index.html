@@ -33,7 +33,10 @@
 
     <div class="cabecalho-acoes">
       <label class="seletor-baralho">
-        <span>Baralho</span>
+        <span class="seletor-baralho-rotulo">
+          <span class="seletor-baralho-naipe" aria-hidden="true">♠</span>
+          Baralho:
+        </span>
         <select id="seletor-baralho">
           <option value="classico">Clássico</option>
           <option value="vitral">Vitral</option>
@@ -41,7 +44,23 @@
         </select>
       </label>
 
-      <button id="btn-tema" class="btn-tema" type="button" aria-pressed="false">Modo escuro</button>
+      <!-- Os dois estados estão no HTML; o CSS mostra um conforme o data-tema -->
+      <button id="btn-tema" class="btn-tema" type="button">
+        <span class="visualmente-escondido">Tema:</span>
+        <span class="tema-estado tema-claro">
+          <svg class="tema-icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+          </svg>
+          Claro
+        </span>
+        <span class="tema-estado tema-escuro">
+          <svg class="tema-icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+          </svg>
+          Escuro
+        </span>
+      </button>
     </div>
   </header>
 
