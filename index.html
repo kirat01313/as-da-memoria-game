@@ -52,14 +52,22 @@
             <circle cx="12" cy="12" r="4" />
             <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
           </svg>
-          Claro
+          <span class="rotulo-botao">Claro</span>
         </span>
         <span class="tema-estado tema-escuro">
           <svg class="tema-icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
           </svg>
-          Escuro
+          <span class="rotulo-botao">Escuro</span>
         </span>
+      </button>
+
+      <button id="btn-som" class="btn-som" type="button" aria-haspopup="dialog">
+        <svg class="som-icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M11 5 6 9H2v6h4l5 4V5z" />
+          <path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14" />
+        </svg>
+        <span class="rotulo-botao">Som</span>
       </button>
     </div>
   </header>
@@ -300,6 +308,36 @@
       <button id="btn-jogar-outra" class="btn btn-principal" type="button">Jogar outra vez</button>
       <button class="btn btn-secundario" type="button" data-seccao="ranking">Ver ranking</button>
     </div>
+  </dialog>
+
+  <!-- Definições de som: o method="dialog" fecha a janela sem recarregar a página -->
+  <dialog id="dialogo-som" class="dialogo-som" aria-labelledby="titulo-som">
+    <form method="dialog" class="painel-som">
+      <h2 id="titulo-som">Som</h2>
+
+      <div class="controlo-som">
+        <label for="volume-musica">Música de fundo</label>
+        <input type="range" id="volume-musica" min="0" max="100" step="5" value="40">
+        <output id="valor-musica" for="volume-musica">40 %</output>
+      </div>
+
+      <div class="controlo-som">
+        <label for="volume-efeitos">Efeitos das cartas</label>
+        <input type="range" id="volume-efeitos" min="0" max="100" step="5" value="70">
+        <output id="valor-efeitos" for="volume-efeitos">70 %</output>
+      </div>
+
+      <label class="silenciar">
+        <input type="checkbox" id="silenciar">
+        Silenciar tudo
+      </label>
+
+      <p class="nota-som">A música começa quando interages com a página pela primeira vez.</p>
+
+      <div class="dialogo-acoes">
+        <button class="btn btn-principal" type="submit">Fechar</button>
+      </div>
+    </form>
   </dialog>
 
   <footer class="rodape">

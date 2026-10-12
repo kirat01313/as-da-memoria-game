@@ -36,6 +36,7 @@ O cronómetro só começa quando viras a primeira carta. No fim, o resultado ent
 - **Galeria:** mostra todas as cartas de cada baralho, a começar pelo verso. A carta selecionada aparece em grande, com o nome da pessoa, e as miniaturas ficam num carrossel. Navega-se com as setas do ecrã ou com o teclado (←, →, Home, End).
 - **Baralho:** escolhe-se no cabeçalho e muda o leque da Mesa, o verso das cartas e a galeria. Fica bloqueado durante uma partida.
 - **Modo claro e escuro**, com ícone de sol e lua.
+- **Som:** música de fundo original e efeitos ao baralhar, ao virar cada carta e ao encontrar um par. O botão **Som** abre uma janela com o volume da música, o volume dos efeitos e a opção de silenciar. A música só começa depois da primeira interação com a página (regra dos browsers) e pausa quando o separador fica escondido.
 - **Carregamento real:** antes de cada partida, as imagens das cartas são pré-carregadas. Enquanto isso, o botão mostra um ícone com os quatro naipes. Não há atrasos simulados.
 - **Acessibilidade:**
   - link "Saltar para o conteúdo";
@@ -55,7 +56,7 @@ O cronómetro só começa quando viras a primeira carta. No fim, o resultado ent
 | **Reatividade e eventos** | Em [`main.js`](js/main.js): `submit` do formulário e `change` do seletor de baralho. Em [`jogo.js`](js/jogo.js): `click` com delegação na grelha (`closest(".carta")`). No menu: `click` em `[data-seccao]`. Em [`galeria.js`](js/galeria.js): `keydown`. |
 | **Scope e closures** | [`cronometro.js`](js/cronometro.js): `criarCronometro` guarda `inicio`, `segundos` e `intervalo` numa closure; de fora só se usam as funções devolvidas. O estado de cada módulo (`partida`, `ranking`, `baralhosEmCache`) não é exportado. As guardas `partidaAtual` e `pedidoAtual` ignoram respostas que chegam atrasadas. |
 | **Assincronismo** | `fetch` + `async/await` para [`baralhos.json`](dados/baralhos.json) e [`ranking-inicial.json`](dados/ranking-inicial.json), sempre com verificação de `response.ok`. Pré-carregamento das imagens com `new Promise` e `Promise.all` ([`baralho.js`](js/baralho.js)). `try/catch/finally` no início da partida e na galeria. |
-| **Modularização** | Oito módulos ES com `import` e `export` (ver a estrutura abaixo). |
+| **Modularização** | Nove módulos ES com `import` e `export` (ver a estrutura abaixo). |
 | **Persistência** | `localStorage` e `sessionStorage` (ver a tabela seguinte). |
 
 ### O que fica guardado no browser
@@ -65,6 +66,7 @@ O cronómetro só começa quando viras a primeira carta. No fim, o resultado ent
 | `as-da-memoria:tema` | `localStorage` | Modo claro ou escuro |
 | `as-da-memoria:baralho` | `localStorage` | Último baralho escolhido |
 | `as-da-memoria:ranking` | `localStorage` | Os 10 melhores de cada nível |
+| `as-da-memoria:som` | `localStorage` | Volume da música, volume dos efeitos e se está silenciado |
 | `as-da-memoria:nome` | `sessionStorage` | Nome do jogador, só enquanto o separador estiver aberto |
 
 ## Estrutura
@@ -80,8 +82,10 @@ O cronómetro só começa quando viras a primeira carta. No fim, o resultado ent
 │   ├── cronometro.js     Cronómetro (closure)
 │   ├── ranking.js        Ranking por nível e recorde pessoal
 │   ├── galeria.js        Galeria de cartas com carrossel
+│   ├── audio.js          Música de fundo, efeitos sonoros e definições de som
 │   ├── ui.js             Tudo o que mexe no ecrã (secções, tema, ranking, vitória)
 │   └── utils.js          Funções reutilizáveis: formatar tempo e data, baralhar
+├── audio/                Música de fundo (mp3) e efeitos das cartas (ogg)
 ├── dados/
 │   ├── baralhos.json         As 16 cartas de cada baralho
 │   └── ranking-inicial.json  Resultados fictícios da primeira visita
@@ -112,6 +116,8 @@ Também funciona com qualquer outro servidor estático, por exemplo `python -m h
 
 - **Ilustrações das figuras:** geradas com IA (Google Gemini) a partir de fotografias dos colegas da turma, com a autorização de cada um.
 - **Cartas numéricas:** compostas em Python (Pillow) a partir dos mesmos estilos. Todas as imagens foram convertidas para WebP.
+- **Música de fundo:** "Skillie beat — Ace of Memory", criada com IA (Suno) para este projeto, em estilo jazz noir. O Skillie é a mascote da UpSkill.
+- **Efeitos sonoros:** pacote [Casino Audio](https://kenney.nl/assets/casino-audio), de Kenney (kenney.nl), licença CC0.
 - **Protótipo visual:** Baseado em um projeto do Google Stitch.
 - **Tipos de letra:** [EB Garamond](https://fonts.google.com/specimen/EB+Garamond) e [Plus Jakarta Sans](https://fonts.google.com/specimen/Plus+Jakarta+Sans), via Google Fonts.
 

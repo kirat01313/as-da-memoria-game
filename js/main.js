@@ -18,6 +18,7 @@ import {
   obterIdDaUltimaEntrada,
 } from "./ranking.js"; // ★
 import { abrirGaleria } from "./galeria.js";
+import { obterDefinicoes, alterarDefinicoes, tocarEfeito } from "./audio.js";
 
 const CHAVE_TEMA = "as-da-memoria:tema";
 const CHAVE_BARALHO = "as-da-memoria:baralho";
@@ -39,6 +40,58 @@ document.getElementById("btn-tema").addEventListener("click", () => {
   aplicarTema(novoTema);
   localStorage.setItem(CHAVE_TEMA, novoTema);
 });
+
+// Som: a janela mostra sempre o que está guardado no audio.js
+const btnSom = document.getElementById("btn-som");
+const dialogoSom = document.getElementById("dialogo-som");
+const volumeMusica = document.getElementById("volume-musica");
+const volumeEfeitos = document.getElementById("volume-efeitos");
+const campoSilenciar = document.getElementById("silenciar");
+
+function mostrarDefinicoesSom() {
+  const { musica, efeitos, silenciado } = obterDefinicoes();
+  volumeMusica.value = musica;
+  volumeEfeitos.value = efeitos;
+  campoSilenciar.checked = silenciado;
+  document.getElementById("valor-musica").textContent = `${musica} %`;
+  document.getElementById("valor-efeitos").textContent = `${efeitos} %`;
+  btnSom.classList.toggle("silenciado", silenciado);
+}
+
+btnSom.addEventListener("click", () => {
+  mostrarDefinicoesSom();
+  dialogoSom.showModal();
+});
+
+// "input" dispara enquanto se arrasta: o volume muda em tempo real
+volumeMusica.addEventListener("input", () => {
+  alterarDefinicoes({ musica: volumeMusica.valueAsNumber });
+  mostrarDefinicoesSom();
+});
+
+volumeEfeitos.addEventListener("input", () => {
+  alterarDefinicoes({ efeitos: volumeEfeitos.valueAsNumber });
+  mostrarDefinicoesSom();
+});
+
+// Ao largar a barra dos efeitos, toca um exemplo com o volume escolhido
+volumeEfeitos.addEventListener("change", () => tocarEfeito("virar"));
+
+campoSilenciar.addEventListener("change", () => {
+  alterarDefinicoes({ silenciado: campoSilenciar.checked });
+  mostrarDefinicoesSom();
+});
+
+// Clicar no fundo escuro, fora da janela, também fecha
+dialogoSom.addEventListener("click", (evento) => {
+  const caixa = dialogoSom.getBoundingClientRect();
+  const fora =
+    evento.clientX < caixa.left || evento.clientX > caixa.right ||
+    evento.clientY < caixa.top || evento.clientY > caixa.bottom;
+  if (fora) dialogoSom.close();
+});
+
+mostrarDefinicoesSom(); // ícone do botão certo logo ao abrir a página
 
 // Baralho: recupera o guardado, se for válido; senão, Clássico
 const baralhoGuardado = localStorage.getItem(CHAVE_BARALHO);

@@ -469,7 +469,8 @@ h3 {
   cursor: not-allowed;
 }
 
-.btn-tema {
+.btn-tema,
+.btn-som {
   position: relative; /* segura o texto "Tema:" escondido */
   display: flex;
   align-items: center;
@@ -484,7 +485,8 @@ h3 {
   transition: background-color 0.2s, color 0.2s;
 }
 
-.btn-tema:hover {
+.btn-tema:hover,
+.btn-som:hover {
   background: var(--cor-superficie-3);
   color: var(--cor-tinta);
 }
@@ -495,7 +497,8 @@ h3 {
   gap: 0.4rem;
 }
 
-.tema-icone {
+.tema-icone,
+.som-icone {
   width: 1.15rem;
   height: 1.15rem;
   fill: none;
@@ -513,6 +516,15 @@ h3 {
 
 [data-tema="escuro"] .btn-tema .tema-escuro {
   display: flex;
+}
+
+.btn-som {
+  gap: 0.4rem;
+}
+
+/* Com o som silenciado, o ícone fica esbatido */
+.btn-som.silenciado .som-icone {
+  opacity: 0.45;
 }
 
 /* =========================================================
@@ -1699,6 +1711,88 @@ h3 {
 }
 
 /* =========================================================
+   16B. DIÁLOGO DE SOM
+   ========================================================= */
+.dialogo-som {
+  width: min(24rem, calc(100% - 2rem));
+  margin: auto;
+  padding: 1.75rem;
+  border: 0;
+  border-radius: var(--raio-grande);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra-forte);
+  color: var(--cor-texto);
+}
+
+.dialogo-som::backdrop {
+  background: var(--fundo-dialogo);
+}
+
+.painel-som {
+  display: grid;
+  gap: 1.1rem;
+}
+
+.painel-som h2 {
+  font-size: 1.75rem;
+  text-align: center;
+}
+
+/* Rótulo em cima; barra e percentagem lado a lado */
+.controlo-som {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.35rem 0.75rem;
+}
+
+.controlo-som label {
+  grid-column: 1 / -1;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--cor-tinta);
+}
+
+.controlo-som input[type="range"] {
+  width: 100%;
+  accent-color: var(--cor-destaque);
+  cursor: pointer;
+}
+
+.controlo-som output {
+  min-width: 3.2rem;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--cor-texto-suave);
+}
+
+.silenciar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.silenciar input {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--cor-destaque);
+}
+
+/* Silenciado: as barras ficam esbatidas (continuam a funcionar) */
+.painel-som:has(#silenciar:checked) .controlo-som {
+  opacity: 0.5;
+}
+
+.nota-som {
+  font-size: 0.78rem;
+  text-align: center;
+  color: var(--cor-texto-suave);
+}
+
+/* =========================================================
    17. RESPONSIVO
    ========================================================= */
 /* Tablet: o menu passa para uma linha própria */
@@ -1786,9 +1880,25 @@ h3 {
 
 @media (max-width: 480px) {
   .cabecalho-acoes {
+    flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
     margin-left: 0;
+  }
+
+  /* Tema e Som só com o ícone; o texto continua lá para os leitores de ecrã */
+  .btn-tema,
+  .btn-som {
+    padding: 0 0.7rem;
+  }
+
+  .rotulo-botao {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   /* Sem espaço para a data: some a 5.ª coluna */
