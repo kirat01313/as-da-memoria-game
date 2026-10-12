@@ -832,7 +832,7 @@ h3 {
   --carta-largura: max(
     4.5rem,
     min(
-      9.5rem,
+      13rem,
       calc((100vw - 2rem - (var(--colunas) - 1) * var(--espaco)) / var(--colunas)),
       calc((100vh - 13.5rem - (var(--linhas) - 1) * var(--espaco)) / var(--linhas) * 0.75)
     )
