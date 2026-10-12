@@ -61,6 +61,14 @@
           Escuro
         </span>
       </button>
+
+      <button id="btn-som" class="btn-som" type="button" aria-haspopup="dialog">
+        <svg class="som-icone" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M11 5 6 9H2v6h4l5 4V5z" />
+          <path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14" />
+        </svg>
+        Som
+      </button>
     </div>
   </header>
 
@@ -300,6 +308,36 @@
       <button id="btn-jogar-outra" class="btn btn-principal" type="button">Jogar outra vez</button>
       <button class="btn btn-secundario" type="button" data-seccao="ranking">Ver ranking</button>
     </div>
+  </dialog>
+
+  <!-- Definições de som: o method="dialog" fecha a janela sem recarregar a página -->
+  <dialog id="dialogo-som" class="dialogo-som" aria-labelledby="titulo-som">
+    <form method="dialog" class="painel-som">
+      <h2 id="titulo-som">Som</h2>
+
+      <div class="controlo-som">
+        <label for="volume-musica">Música de fundo</label>
+        <input type="range" id="volume-musica" min="0" max="100" step="5" value="40">
+        <output id="valor-musica" for="volume-musica">40 %</output>
+      </div>
+
+      <div class="controlo-som">
+        <label for="volume-efeitos">Efeitos das cartas</label>
+        <input type="range" id="volume-efeitos" min="0" max="100" step="5" value="70">
+        <output id="valor-efeitos" for="volume-efeitos">70 %</output>
+      </div>
+
+      <label class="silenciar">
+        <input type="checkbox" id="silenciar">
+        Silenciar tudo
+      </label>
+
+      <p class="nota-som">A música começa quando interages com a página pela primeira vez.</p>
+
+      <div class="dialogo-acoes">
+        <button class="btn btn-principal" type="submit">Fechar</button>
+      </div>
+    </form>
   </dialog>
 
   <footer class="rodape">
