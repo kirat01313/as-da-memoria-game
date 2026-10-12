@@ -859,6 +859,25 @@ h3 {
   --linhas: 4;
 }
 
+/* Ecrãs largos (portátil, projetor): a altura é o que falta,
+   por isso a grelha espalha-se para os lados e as cartas crescem */
+@media (min-aspect-ratio: 3/2) {
+  .grelha[data-nivel="facil"] {
+    --colunas: 6;
+    --linhas: 2;
+  }
+
+  .grelha[data-nivel="medio"] {
+    --colunas: 8;
+    --linhas: 2;
+  }
+
+  .grelha[data-nivel="dificil"] {
+    --colunas: 8;
+    --linhas: 3;
+  }
+}
+
 /* =========================================================
    11. JOGO — carta (flip e desaparecer ao fazer par)
    Classes que o JS põe: virada, encontrada
