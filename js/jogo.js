@@ -1,6 +1,7 @@
 import { baralhar, formatarTempo } from "./utils.js"; // ★ formatarTempo
 import { caminhoImagem, NIVEIS } from "./baralho.js";
 import { criarCronometro } from "./cronometro.js"; // ★
+import { tocarEfeito } from "./audio.js";
 
 // Tempo para ver um par errado antes de as cartas voltarem a virar-se (ms)
 const PAUSA_PAR_ERRADO = 1100;
@@ -54,6 +55,7 @@ export function iniciarJogo(config) {
   mensagem.textContent = `Boa sorte, ${nome}! O tempo começa quando virares a primeira carta.`;
   cronometro.reiniciar(); // ★
   atualizarEstatisticas();
+  tocarEfeito("baralhar");
 }
 
 // Recomeça com as mesmas cartas, baralhadas de novo
@@ -112,6 +114,7 @@ function virarCarta(botao) {
   const carta = partida.mesa.find((item) => item.uid === botao.dataset.uid);
 
   botao.classList.add("virada");
+  tocarEfeito("virar");
   botao.setAttribute("aria-label", carta.nome);
   partida.viradas.push({ botao, carta });
 
@@ -125,6 +128,7 @@ function virarCarta(botao) {
   // Par certo: as duas saem da mesa
   if (primeira.carta.id === segunda.carta.id) {
     partida.pares++;
+    tocarEfeito("par");
 
     [primeira, segunda].forEach((item) => {
       item.botao.classList.add("encontrada");
