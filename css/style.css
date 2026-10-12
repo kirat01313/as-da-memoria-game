@@ -1886,6 +1886,21 @@ h3 {
     margin-left: 0;
   }
 
+  /* Tema e Som só com o ícone; o texto continua lá para os leitores de ecrã */
+  .btn-tema,
+  .btn-som {
+    padding: 0 0.7rem;
+  }
+
+  .rotulo-botao {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
   /* Sem espaço para a data: some a 5.ª coluna */
   .tabela-ranking th:nth-child(5),
   .tabela-ranking td:nth-child(5) {
