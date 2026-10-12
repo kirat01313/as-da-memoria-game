@@ -18,6 +18,7 @@ import {
   obterIdDaUltimaEntrada,
 } from "./ranking.js"; // ★
 import { abrirGaleria } from "./galeria.js";
+import "./audio.js"; // música de fundo: arranca na primeira interação
 
 const CHAVE_TEMA = "as-da-memoria:tema";
 const CHAVE_BARALHO = "as-da-memoria:baralho";
