@@ -5,8 +5,8 @@ import {
   mostrarCarregamento,
   bloquearSeletorBaralho,
   mostrarVitoria,
-  mostrarRecorde, // ★
-  mostrarRanking, // ★
+  mostrarRecorde,
+  mostrarRanking,
 } from "./ui.js";
 import { prepararBaralho } from "./baralho.js";
 import { iniciarJogo, reiniciarJogo, sairDoJogo, jogoEmCurso } from "./jogo.js";
@@ -16,16 +16,16 @@ import {
   obterRecorde,
   registarResultado,
   obterIdDaUltimaEntrada,
-} from "./ranking.js"; // ★
+} from "./ranking.js";
 import { abrirGaleria } from "./galeria.js";
 import { obterDefinicoes, alterarDefinicoes, tocarEfeito } from "./audio.js";
 
 const CHAVE_TEMA = "as-da-memoria:tema";
 const CHAVE_BARALHO = "as-da-memoria:baralho";
-const CHAVE_NOME = "as-da-memoria:nome"; // ★ sessionStorage
+const CHAVE_NOME = "as-da-memoria:nome"; // sessionStorage
 const BARALHOS = ["classico", "vitral", "azulejo"];
 
-// ★ Nível que a página "Ranking" está a mostrar
+// Nível que a página "Ranking" está a mostrar
 let nivelRanking = "facil";
 
 // Ano no rodapé
@@ -134,12 +134,12 @@ document.addEventListener("click", (evento) => {
   const pedida = botao.dataset.seccao;
   const destino = pedida === "inicio" && jogoEmCurso() ? "jogo" : pedida;
 
-  if (destino === "ranking") atualizarRanking(); // ★ tabela sempre atualizada
+  if (destino === "ranking") atualizarRanking(); // tabela sempre atualizada
   if (destino === "galeria") abrirGaleria(document.documentElement.dataset.baralho); // abre no baralho do header
   mostrarSeccao(destino);
 });
 
-// ★ Ranking: separadores Fácil / Médio / Difícil
+// Ranking: separadores Fácil / Médio / Difícil
 function atualizarRanking() {
   mostrarRanking(nivelRanking, obterRanking(nivelRanking), obterIdDaUltimaEntrada());
 }
@@ -158,10 +158,10 @@ const botaoJogar = document.getElementById("btn-jogar");
 const erroPartida = document.getElementById("erro-partida");
 const campoNome = document.getElementById("nome-jogador");
 
-// ★ O nome fica guardado enquanto o separador estiver aberto
+// O nome fica guardado enquanto o separador estiver aberto
 campoNome.value = sessionStorage.getItem(CHAVE_NOME) ?? "";
 
-// ★ "Recorde a bater" do nível escolhido no formulário
+// "Recorde a bater" do nível escolhido no formulário
 function atualizarRecorde() {
   mostrarRecorde(obterRecorde(formPartida.elements.nivel.value));
 }
@@ -188,7 +188,7 @@ formPartida.addEventListener("submit", async (evento) => {
     return;
   }
 
-  sessionStorage.setItem(CHAVE_NOME, nome); // ★
+  sessionStorage.setItem(CHAVE_NOME, nome);
   erroPartida.hidden = true;
   mostrarCarregamento(botaoJogar, true);
 
@@ -208,7 +208,7 @@ formPartida.addEventListener("submit", async (evento) => {
 
 // Fim da partida: chamada pelo jogo.js quando o último par sai da mesa
 function terminarPartida(resultado) {
-  // ★ Regista no ranking e prepara a página do ranking para o nível jogado
+  // Regista no ranking e prepara a página do ranking para o nível jogado
   const { posicao, recordePessoal } = registarResultado(resultado);
   nivelRanking = resultado.nivel;
   atualizarRecorde();
@@ -247,6 +247,6 @@ document.getElementById("btn-jogar-outra").addEventListener("click", () => {
   formPartida.requestSubmit();
 });
 
-// ★ Carrega o ranking (do localStorage ou, na primeira visita, do JSON)
+// Carrega o ranking (do localStorage ou, na primeira visita, do JSON)
 await carregarRanking();
 atualizarRecorde();
