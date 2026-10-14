@@ -1,6 +1,6 @@
-import { baralhar, formatarTempo } from "./utils.js"; // ★ formatarTempo
+import { baralhar, formatarTempo } from "./utils.js";
 import { caminhoImagem, NIVEIS } from "./baralho.js";
-import { criarCronometro } from "./cronometro.js"; // ★
+import { criarCronometro } from "./cronometro.js";
 import { tocarEfeito } from "./audio.js";
 
 // Tempo para ver um par errado antes de as cartas voltarem a virar-se (ms)
@@ -12,9 +12,9 @@ const campoJogadas = document.getElementById("jogadas");
 const campoPares = document.getElementById("pares");
 const campoJogador = document.getElementById("info-jogador");
 const campoNivel = document.getElementById("info-nivel");
-const campoTempo = document.getElementById("tempo"); // ★
+const campoTempo = document.getElementById("tempo");
 
-// ★ Um só cronómetro para o jogo; atualiza o mostrador a cada segundo
+// Um só cronómetro para o jogo; atualiza o mostrador a cada segundo
 const cronometro = criarCronometro((segundos) => {
   campoTempo.textContent = formatarTempo(segundos);
 });
@@ -51,9 +51,9 @@ export function iniciarJogo(config) {
 
   campoJogador.textContent = nome;
   campoNivel.textContent = NIVEIS[nivel].nome;
-  // ★ texto novo: avisa quando começa o tempo
+  // O tempo só começa na primeira carta virada
   mensagem.textContent = `Boa sorte, ${nome}! O tempo começa quando virares a primeira carta.`;
-  cronometro.reiniciar(); // ★
+  cronometro.reiniciar();
   atualizarEstatisticas();
   tocarEfeito("baralhar");
 }
@@ -64,7 +64,7 @@ export function reiniciarJogo() {
 }
 
 export function sairDoJogo() {
-  cronometro.reiniciar(); // ★
+  cronometro.reiniciar();
   partida = null;
   grelha.innerHTML = "";
   mensagem.textContent = "";
@@ -108,7 +108,7 @@ grelha.addEventListener("click", (evento) => {
 function virarCarta(botao) {
   if (!jogoEmCurso() || partida.bloqueada || botao.classList.contains("virada")) return;
 
-  // ★ A primeira carta virada põe o cronómetro a contar
+  // A primeira carta virada põe o cronómetro a contar
   if (!cronometro.aCorrer()) cronometro.iniciar();
 
   const carta = partida.mesa.find((item) => item.uid === botao.dataset.uid);
@@ -166,11 +166,11 @@ function virarCarta(botao) {
 }
 
 function terminarJogo() {
-  cronometro.parar(); // ★
+  cronometro.parar();
   partida.terminada = true;
   mensagem.textContent = "Baralho completo!";
 
   const { nome, nivel, baralho, aoTerminar } = partida.config;
-  // ★ o resultado leva agora os segundos
+  // Entrega o resultado ao main.js, que o regista no ranking
   aoTerminar({ nome, nivel, baralho, jogadas: partida.jogadas, segundos: cronometro.obterSegundos() });
 }

@@ -1,5 +1,5 @@
-import { formatarTempo, formatarData } from "./utils.js"; // ★ formatarData
-import { NIVEIS } from "./baralho.js"; // ★
+import { formatarTempo, formatarData } from "./utils.js";
+import { NIVEIS } from "./baralho.js";
 
 const raiz = document.documentElement;
 const seccoes = document.querySelectorAll("main > .seccao");
@@ -7,7 +7,7 @@ const linksMenu = document.querySelectorAll(".menu-link");
 const seletorBaralho = document.getElementById("seletor-baralho");
 const dialogoVitoria = document.getElementById("dialogo-vitoria");
 
-// ★ Elementos do recorde, do ranking e do diálogo de vitória
+// Elementos do recorde, do ranking e do diálogo de vitória
 const campoRecorde = document.getElementById("recorde");
 const corpoRanking = document.getElementById("ranking-corpo");
 const rankingVazio = document.getElementById("ranking-vazio");
@@ -91,14 +91,14 @@ export function bloquearSeletorBaralho(bloqueado) {
   seletorBaralho.disabled = bloqueado;
 }
 
-// ★ "Recorde a bater" no ecrã inicial
+// "Recorde a bater" no ecrã inicial
 export function mostrarRecorde(recorde) {
   campoRecorde.textContent = recorde
     ? `${formatarTempo(recorde.tempo)} · ${recorde.jogadas} jogadas`
     : "—";
 }
 
-// ★ Tabela do ranking de um nível
+// Tabela do ranking de um nível
 export function mostrarRanking(nivel, entradas, idDestacado) {
   separadores.forEach((botao) => {
     botao.setAttribute("aria-pressed", String(botao.dataset.nivel === nivel));
@@ -163,7 +163,7 @@ export function mostrarRanking(nivel, entradas, idDestacado) {
   });
 }
 
-// ★ Diálogo de vitória com tempo, jogadas, posição e recorde pessoal
+// Diálogo de vitória com tempo, jogadas, posição e recorde pessoal
 export function mostrarVitoria({ nivel, segundos, jogadas, posicao, recordePessoal }) {
   const nomeNivel = NIVEIS[nivel].nome;
 

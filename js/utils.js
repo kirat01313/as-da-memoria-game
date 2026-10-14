@@ -5,7 +5,7 @@ export function formatarTempo(totalSegundos) {
   return `${minutos}:${String(segundos).padStart(2, "0")}`;
 }
 
-// Converte "2026-10-01" em "1 de out. de 2026"
+// Converte "2026-10-01" em "1/10/2026" (em pt-PT, o mês "short" sai em número)
 const formatoData = new Intl.DateTimeFormat("pt-PT", {
   day: "numeric",
   month: "short",
